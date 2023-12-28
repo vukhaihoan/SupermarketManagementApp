@@ -48,16 +48,15 @@ public class CustomerManagement extends JFrame {
 		@Override
 		public Class<?> getColumnClass(int column) {
 			switch (column) {
-			case 0:
-				return Boolean.class;
-			default:
-				return String.class;
+				case 0:
+					return Boolean.class;
+				default:
+					return String.class;
 			}
 		}
 	};
 
-	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/supermarket", "phuocvo", "123456");
-
+	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
 
 	/**
 	 * Launch the application.
@@ -66,8 +65,8 @@ public class CustomerManagement extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					CustomerManagement frame = new CustomerManagement();
-//					frame.setVisible(true);
+					// CustomerManagement frame = new CustomerManagement();
+					// frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -168,7 +167,7 @@ public class CustomerManagement extends JFrame {
 			}
 		});
 
-		String[] columnNames = {"", "Customer ID", "Customer Name", "Phone Numbers", "Address", "Level"};
+		String[] columnNames = { "", "Customer ID", "Customer Name", "Phone Numbers", "Address", "Level" };
 		model.setColumnIdentifiers(columnNames);
 
 		scrollPane.setViewportView(table);
@@ -189,7 +188,7 @@ public class CustomerManagement extends JFrame {
 						txtCustomerId.setText("");
 						txtCustomerName.setText("");
 						txtPhonenumbers.setText("");
-						txtAddress.setText(""); 
+						txtAddress.setText("");
 						searchData();
 						int lastRowIndex = table.getModel().getRowCount() - 1;
 						table.setRowSelectionInterval(lastRowIndex, lastRowIndex);
@@ -207,24 +206,26 @@ public class CustomerManagement extends JFrame {
 		JButton btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int result = JOptionPane.showOptionDialog(null, "Confirm to delete?", "Confirm Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
-				if(result == JOptionPane.YES_OPTION) {
+				int result = JOptionPane.showOptionDialog(null, "Confirm to delete?", "Confirm Delete",
+						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+				if (result == JOptionPane.YES_OPTION) {
 					Vector<Integer> v = new Vector<>();
-					for(int i=0;i<table.getRowCount();i++) {
+					for (int i = 0; i < table.getRowCount(); i++) {
 
-						if(table.getValueAt(i, 0).toString() == "true") v.add(Integer.parseInt(table.getValueAt(i, 1).toString()));
+						if (table.getValueAt(i, 0).toString() == "true")
+							v.add(Integer.parseInt(table.getValueAt(i, 1).toString()));
 					}
-					for(int i=0;i<v.size();i++) {
+					for (int i = 0; i < v.size(); i++) {
 
 						DBOperation.deleteCustomer(v.get(i), conn);
 					}
 					txtCustomerId.setText("");
 					txtCustomerName.setText("");
 					txtPhonenumbers.setText("");
-					txtAddress.setText("");     
+					txtAddress.setText("");
 					searchData();
-				}else {
-					
+				} else {
+
 				}
 			}
 		});
@@ -248,16 +249,13 @@ public class CustomerManagement extends JFrame {
 
 				DBOperation.updateCustomer(customer, conn);
 
-				if(customerId == 0 || customerName == null || phoneNumbers == null || address == null)
-				{
-					JOptionPane.showMessageDialog(null,"Please fill in all the required information.");
-				}else {
+				if (customerId == 0 || customerName == null || phoneNumbers == null || address == null) {
+					JOptionPane.showMessageDialog(null, "Please fill in all the required information.");
+				} else {
 					JOptionPane.showMessageDialog(null, "Update a customer successfully!");
 				}
 
-				searchData();	
-
-
+				searchData();
 
 			}
 		});
@@ -289,14 +287,14 @@ public class CustomerManagement extends JFrame {
 		btnItemList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if(table.isRowSelected(table.getSelectedRow())) {
+				if (table.isRowSelected(table.getSelectedRow())) {
 					int row = table.getSelectedRow();
-					int customerId =Integer.parseInt(table.getValueAt(row, 1).toString());
+					int customerId = Integer.parseInt(table.getValueAt(row, 1).toString());
 					Customer customer = DBOperation.queryCustomer(customerId, conn);
 
 					CustomerInvoice customerInvoice = new CustomerInvoice(customer);
 					customerInvoice.setVisible(true);
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, "Please choose a customer!");
 				}
 			}
@@ -308,8 +306,7 @@ public class CustomerManagement extends JFrame {
 
 				int row = table.getSelectedRow();
 
-
-				if(table.isRowSelected(row)) {
+				if (table.isRowSelected(row)) {
 					int customerId = Integer.parseInt(table.getValueAt(row, 1).toString());
 					String customerName = table.getValueAt(row, 2).toString();
 					String phonenumber = table.getValueAt(row, 3).toString();
@@ -321,11 +318,11 @@ public class CustomerManagement extends JFrame {
 							txtCustomerId.setText("");
 							txtCustomerName.setText("");
 							txtPhonenumbers.setText("");
-							txtAddress.setText("");    
+							txtAddress.setText("");
 							searchData();
 						}
 					});
-				}else {
+				} else {
 					PutSelectedItem putSelectedItem = new PutSelectedItem(i);
 					putSelectedItem.show();
 					putSelectedItem.addWindowListener(new WindowAdapter() {
@@ -334,12 +331,11 @@ public class CustomerManagement extends JFrame {
 							txtCustomerId.setText("");
 							txtCustomerName.setText("");
 							txtPhonenumbers.setText("");
-							txtAddress.setText("");    
+							txtAddress.setText("");
 							searchData();
 						}
 					});
 				}
-
 
 			}
 		});
@@ -349,40 +345,39 @@ public class CustomerManagement extends JFrame {
 		JButton btnCancel = new JButton("Log out");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(i == 12 || i ==15) {
-				SaleManagement SaleManagement = new SaleManagement(i);
-				SaleManagement.setVisible(true);
-				SaleManagement.setLocationRelativeTo(null);
-				dispose();
-			}else {
-				AdminManagement adminManagement = new AdminManagement(i);
-				adminManagement.setVisible(true);
-				adminManagement.setLocationRelativeTo(null);
-				dispose();	
-			}
+				if (i == 12 || i == 15) {
+					SaleManagement SaleManagement = new SaleManagement(i);
+					SaleManagement.setVisible(true);
+					SaleManagement.setLocationRelativeTo(null);
+					dispose();
+				} else {
+					AdminManagement adminManagement = new AdminManagement(i);
+					adminManagement.setVisible(true);
+					adminManagement.setLocationRelativeTo(null);
+					dispose();
+				}
 			}
 		});
 		panel_2.add(btnCancel);
 	}
 
-
 	public void searchData() {
 
-		Map <String, String> conditionMap = new HashMap <String, String>();
+		Map<String, String> conditionMap = new HashMap<String, String>();
 
 		String customerName = txtCustomerName.getText();
-		if(txtCustomerId.getText() != null && !txtCustomerId.getText().isEmpty()) {
+		if (txtCustomerId.getText() != null && !txtCustomerId.getText().isEmpty()) {
 			conditionMap.put(DBOperation.customerId, "%" + txtCustomerId.getText().toLowerCase() + "%");
 		}
-		if(customerName != null && !customerName.isEmpty()) {
+		if (customerName != null && !customerName.isEmpty()) {
 			conditionMap.put(DBOperation.customerName, "%" + customerName.toLowerCase() + "%");
 		}
-		List <Customer> customers = DBOperation.queryCustomer(conditionMap, conn);
+		List<Customer> customers = DBOperation.queryCustomer(conditionMap, conn);
 		table.setModel(model);
 
-		while( model.getRowCount() > 0) {
+		while (model.getRowCount() > 0) {
 			model.removeRow(0);
-		}		
+		}
 
 		for (Customer s : customers) {
 			Object[] o = new Object[7];

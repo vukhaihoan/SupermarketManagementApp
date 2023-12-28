@@ -34,8 +34,9 @@ public class LogInDialog extends JFrame {
 	private JTextField txtUserId;
 	private JPasswordField txtPassword;
 	private static int userId;
-	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/supermarket", "phuocvo", "123456");
+	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
 	private HashMap<Integer, Integer> userBoothIds = new HashMap<Integer, Integer>();
+
 	/**
 	 * Launch the application.
 	 */
@@ -139,17 +140,18 @@ public class LogInDialog extends JFrame {
 		btnLogIn.setBounds(378, 235, 100, 28);
 		contentPane.add(btnLogIn);
 	}
+
 	public void logIn() {
-	    String userIdText = txtUserId.getText();
-	    char[] password = txtPassword.getPassword();
-	    String passwordString = new String(password);
-		if(userIdText.isEmpty() || passwordString.isEmpty()) {
+		String userIdText = txtUserId.getText();
+		char[] password = txtPassword.getPassword();
+		String passwordString = new String(password);
+		if (userIdText.isEmpty() || passwordString.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Please fill empty field!");
 			txtUserId.requestFocus();
 			return;
 		} else {
 			userId = Integer.parseInt(userIdText);
-			Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/supermarket", "phuocvo", "123456");
+			Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
 			String sql = "SELECT * FROM user WHERE USER_ID = ? AND PASSWORD = ?";
 			PreparedStatement statement;
 			try {
@@ -157,24 +159,24 @@ public class LogInDialog extends JFrame {
 				statement.setInt(1, userId);
 				statement.setString(2, passwordString);
 				ResultSet result = statement.executeQuery();
-				if(result.next()) {
+				if (result.next()) {
 					String role = result.getString("ROLE");
 					int boothId = result.getInt("BOOTH_ID");
 					userBoothIds.put(userId, boothId);
-					if(role.equals("SALE_PERSON")) {
+					if (role.equals("SALE_PERSON")) {
 
 						SaleManagement saleManagement = new SaleManagement(getUserId());
 						saleManagement.setLocationRelativeTo(null);
 						saleManagement.setVisible(true);
 						dispose();
-					}else {
+					} else {
 
-						if(role.equals("ADMIN")) {
+						if (role.equals("ADMIN")) {
 							AdminManagement adminManagement = new AdminManagement(getUserId());
 							adminManagement.setLocationRelativeTo(null);
 							adminManagement.setVisible(true);
 							dispose();
-						}else {
+						} else {
 							ItemManagement itemManagement = new ItemManagement(getUserId());
 							itemManagement.setLocationRelativeTo(null);
 							itemManagement.setVisible(true);
@@ -195,6 +197,7 @@ public class LogInDialog extends JFrame {
 
 		}
 	}
+
 	public static int getBoothId() {
 		String sql = "SELECT BOOTH_ID AS BID FROM USER WHERE USER_ID = ?";
 		int bid = 0;
@@ -208,7 +211,7 @@ public class LogInDialog extends JFrame {
 			}
 			ResultSet result = statement.executeQuery();
 
-			if (result.next()){
+			if (result.next()) {
 				bid = result.getInt("BID");
 			}
 		} catch (SQLException e) {
@@ -216,6 +219,7 @@ public class LogInDialog extends JFrame {
 		}
 		return bid;
 	}
+
 	public static int getUserId() {
 		return userId;
 	}

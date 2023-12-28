@@ -16,8 +16,9 @@ import java.awt.event.ActionEvent;
 public class AdminManagement extends JFrame {
 
 	private JPanel contentPane;
-	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/supermarket", "phuocvo", "123456");
+	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
 	private int k = LogInDialog.getBoothId();
+
 	/**
 	 * Launch the application.
 	 */
@@ -25,9 +26,9 @@ public class AdminManagement extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					AdminManagement frame = new AdminManagement(i);
-//					frame.setVisible(true);
-//					frame.setLocationRelativeTo(null);
+					// AdminManagement frame = new AdminManagement(i);
+					// frame.setVisible(true);
+					// frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,7 +38,8 @@ public class AdminManagement extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param i 
+	 * 
+	 * @param i
 	 */
 	public AdminManagement(int i) {
 		setTitle("Admin Management");
@@ -49,16 +51,16 @@ public class AdminManagement extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 10, 677, 82);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("Cusutomer Management");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				CustomerManagement customerManagement = new CustomerManagement(k);
 				customerManagement.setLocationRelativeTo(null);
 				customerManagement.setVisible(true);
@@ -67,7 +69,7 @@ public class AdminManagement extends JFrame {
 		});
 		btnNewButton.setBounds(10, 27, 213, 40);
 		panel.add(btnNewButton);
-		
+
 		JButton btnInvoiceManagement = new JButton("Invoice Management");
 		btnInvoiceManagement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -79,11 +81,11 @@ public class AdminManagement extends JFrame {
 		});
 		btnInvoiceManagement.setBounds(233, 27, 213, 40);
 		panel.add(btnInvoiceManagement);
-		
+
 		JButton btnInvoiceManagement_1 = new JButton("Item Management");
 		btnInvoiceManagement_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				ItemManagement itemManagement = new ItemManagement(i);
 				itemManagement.setLocationRelativeTo(null);
 				itemManagement.setVisible(true);

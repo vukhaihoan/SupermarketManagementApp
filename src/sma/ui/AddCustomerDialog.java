@@ -31,8 +31,7 @@ public class AddCustomerDialog extends JFrame {
 	private JTextField txtAddress;
 	private JTextField txtPhonenumbers;
 	DefaultTableModel model = new DefaultTableModel();
-	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/supermarket", "phuocvo", "123456");
-
+	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
 
 	/**
 	 * Launch the application.
@@ -44,7 +43,7 @@ public class AddCustomerDialog extends JFrame {
 					AddCustomerDialog frame = new AddCustomerDialog();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
-					
+
 					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -97,7 +96,7 @@ public class AddCustomerDialog extends JFrame {
 		txtCustomerName.setColumns(10);
 		txtCustomerName.setBounds(490, 60, 157, 20);
 		panel.add(txtCustomerName);
-		
+
 		JLabel lblNewLabel_2_1 = new JLabel("Address:");
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2_1.setBounds(20, 121, 57, 19);
@@ -127,45 +126,49 @@ public class AddCustomerDialog extends JFrame {
 
 		JButton btnApply = new JButton("Apply");
 		btnApply.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 
-		        int customerId = Integer.parseInt(txtCustomerId.getText());
-		        String customerName = txtCustomerName.getText();
-		        String phoneNumbers = txtPhonenumbers.getText();
-		        String address = txtAddress.getText();
+				int customerId = Integer.parseInt(txtCustomerId.getText());
+				String customerName = txtCustomerName.getText();
+				String phoneNumbers = txtPhonenumbers.getText();
+				String address = txtAddress.getText();
 
-		        if( txtCustomerName.getText().isEmpty() || txtPhonenumbers.getText().isEmpty() || txtAddress.getText().isEmpty()) {
-		            JOptionPane.showMessageDialog(null,"Please fill in all the required information.");
-		            return;
-		        } else if(DBOperation.existsPhone(phoneNumbers, conn)) {
-		            
-		        	int result = JOptionPane.showOptionDialog(null, "Your phone number has previously existed, would you like to reactivate your old account(Yes) or sign up(No)?", "Reactive account dialog", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
-		            if(result == JOptionPane.YES_OPTION) {
-		            	Customer customer = DBOperation.queryCustomerByPhone(phoneNumbers, conn);
-		            	DBOperation.updateRemoveCustomer(customer, conn);
-		            }else {
-			            Customer customer = new Customer();
-			            customer.setCustomerId(customerId);
-			            customer.setCustomerName(customerName);
-			            customer.setPhoneNumbers(phoneNumbers);
-			            customer.setAddress(address);
+				if (txtCustomerName.getText().isEmpty() || txtPhonenumbers.getText().isEmpty()
+						|| txtAddress.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please fill in all the required information.");
+					return;
+				} else if (DBOperation.existsPhone(phoneNumbers, conn)) {
 
-			            DBOperation.insertCustomer(customer, conn);
-			            JOptionPane.showMessageDialog(null, "Insert new customer successfully!");
-		            }
-		        } else {
-		            Customer customer = new Customer();
-		            customer.setCustomerId(customerId);
-		            customer.setCustomerName(customerName);
-		            customer.setPhoneNumbers(phoneNumbers);
-		            customer.setAddress(address);
+					int result = JOptionPane.showOptionDialog(null,
+							"Your phone number has previously existed, would you like to reactivate your old account(Yes) or sign up(No)?",
+							"Reactive account dialog", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,
+							null, null);
+					if (result == JOptionPane.YES_OPTION) {
+						Customer customer = DBOperation.queryCustomerByPhone(phoneNumbers, conn);
+						DBOperation.updateRemoveCustomer(customer, conn);
+					} else {
+						Customer customer = new Customer();
+						customer.setCustomerId(customerId);
+						customer.setCustomerName(customerName);
+						customer.setPhoneNumbers(phoneNumbers);
+						customer.setAddress(address);
 
-		            String result = DBOperation.insertCustomer(customer, conn);
-		            JOptionPane.showMessageDialog(null, "Insert new customer successfully!");
-		        }
-		        
-		        dispose();
-		    }
+						DBOperation.insertCustomer(customer, conn);
+						JOptionPane.showMessageDialog(null, "Insert new customer successfully!");
+					}
+				} else {
+					Customer customer = new Customer();
+					customer.setCustomerId(customerId);
+					customer.setCustomerName(customerName);
+					customer.setPhoneNumbers(phoneNumbers);
+					customer.setAddress(address);
+
+					String result = DBOperation.insertCustomer(customer, conn);
+					JOptionPane.showMessageDialog(null, "Insert new customer successfully!");
+				}
+
+				dispose();
+			}
 		});
 
 		btnApply.setBounds(576, 27, 99, 23);

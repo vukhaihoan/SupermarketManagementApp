@@ -31,12 +31,11 @@ public class AddItemDialog extends JFrame {
 
 	private JPanel contentPane;
 	DefaultTableModel model = new DefaultTableModel();
-	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/supermarket", "phuocvo", "123456");
+	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
 	private JTextField txtItemId;
 	private JTextField txtItemName;
 	private JTextField txtQuantity;
 	private JTextField txtUnitPrice;
-
 
 	/**
 	 * Launch the application.
@@ -48,7 +47,7 @@ public class AddItemDialog extends JFrame {
 					AddItemDialog frame = new AddItemDialog();
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -97,7 +96,7 @@ public class AddItemDialog extends JFrame {
 		cbMeasurement.setBounds(108, 91, 129, 26);
 		panel_1_1.add(cbMeasurement);
 		List<Measurement> measurements = DBOperation.queryMeasurement(conn);
-		for(Measurement m : measurements) {
+		for (Measurement m : measurements) {
 
 			cbMeasurement.addItem(m.getMeasurement());
 
@@ -114,7 +113,7 @@ public class AddItemDialog extends JFrame {
 		txtItemId.setColumns(10);
 		txtItemId.setBounds(108, 40, 127, 22);
 		panel_1_1.add(txtItemId);
-		txtItemId.setText(String.valueOf(DBOperation.getMaxItemId(conn)+1));
+		txtItemId.setText(String.valueOf(DBOperation.getMaxItemId(conn) + 1));
 
 		txtQuantity = new JTextField();
 		txtQuantity.setColumns(10);
@@ -125,7 +124,7 @@ public class AddItemDialog extends JFrame {
 		cbCategory.setBounds(716, 36, 129, 26);
 		panel_1_1.add(cbCategory);
 		List<Category> categories = DBOperation.queryCategories(conn);
-		for(Category c : categories) {
+		for (Category c : categories) {
 
 			cbCategory.addItem(c.getCategory());
 
@@ -162,37 +161,36 @@ public class AddItemDialog extends JFrame {
 
 		JButton btnApply = new JButton("Apply");
 		btnApply.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 
-		        int itemId = DBOperation.getMaxItemId(conn) + 1;
-		        String itemName = txtItemName.getText();
-		        String category = cbCategory.getSelectedItem().toString();
-		        String measurement = cbMeasurement.getSelectedItem().toString();
+				int itemId = DBOperation.getMaxItemId(conn) + 1;
+				String itemName = txtItemName.getText();
+				String category = cbCategory.getSelectedItem().toString();
+				String measurement = cbMeasurement.getSelectedItem().toString();
 
-		        if( itemName.equals("") || txtQuantity.getText().isEmpty() || txtUnitPrice.getText().isEmpty()) {
+				if (itemName.equals("") || txtQuantity.getText().isEmpty() || txtUnitPrice.getText().isEmpty()) {
 
-		            JOptionPane.showMessageDialog(null,"Please fill in all the required information.");
-		            return;
-		        }else {
-			        int quantity = Integer.parseInt(txtQuantity.getText());
-			        float unitPrice = Float.parseFloat(txtUnitPrice.getText());
-		            Item item = new Item();
-		            item.setItemId(itemId);
-		            item.setItemName(itemName);
-		            item.setCategory(category);
-		            item.setMeasurement(measurement);
-		            item.setQuantity(quantity);
-		            item.setUnitPrice(unitPrice);
-		            String result = DBOperation.insertItem(item, conn);
-		            JOptionPane.showMessageDialog(null, "Add successfully!");
-		            dispose();
-		        }
-		    }
+					JOptionPane.showMessageDialog(null, "Please fill in all the required information.");
+					return;
+				} else {
+					int quantity = Integer.parseInt(txtQuantity.getText());
+					float unitPrice = Float.parseFloat(txtUnitPrice.getText());
+					Item item = new Item();
+					item.setItemId(itemId);
+					item.setItemName(itemName);
+					item.setCategory(category);
+					item.setMeasurement(measurement);
+					item.setQuantity(quantity);
+					item.setUnitPrice(unitPrice);
+					String result = DBOperation.insertItem(item, conn);
+					JOptionPane.showMessageDialog(null, "Add successfully!");
+					dispose();
+				}
+			}
 		});
 
 		btnApply.setBounds(637, 27, 99, 23);
 		panel_1.add(btnApply);
-
 
 	}
 }

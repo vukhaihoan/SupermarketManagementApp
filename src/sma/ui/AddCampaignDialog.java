@@ -42,9 +42,8 @@ public class AddCampaignDialog extends JFrame {
 	private JTextField txtTime;
 	JDatePanelImpl datePanel;
 	JDatePickerImpl datePicker;
-	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/supermarket", "phuocvo", "123456");
+	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
 
-	
 	/**
 	 * Launch the application.
 	 */
@@ -73,12 +72,12 @@ public class AddCampaignDialog extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 11, 616, 159);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		txtCampaignId = new JTextField();
 		txtCampaignId.setEditable(false);
 		txtCampaignId.setHorizontalAlignment(SwingConstants.CENTER);
@@ -87,17 +86,17 @@ public class AddCampaignDialog extends JFrame {
 		panel.add(txtCampaignId);
 		int maxCampaign = DBOperation.getCountCampaign(conn);
 		txtCampaignId.setText(String.valueOf(maxCampaign + 1));
-		
+
 		txtCampaignName = new JTextField();
 		txtCampaignName.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCampaignName.setColumns(10);
 		txtCampaignName.setBounds(147, 48, 145, 26);
 		panel.add(txtCampaignName);
-		
+
 		JComboBox cbTargetCustomer = new JComboBox();
 		cbTargetCustomer.setBounds(147, 83, 145, 26);
 		panel.add(cbTargetCustomer);
-		
+
 		txtCampaignCode = new JTextField();
 		txtCampaignCode.setEditable(false);
 		txtCampaignCode.setHorizontalAlignment(SwingConstants.CENTER);
@@ -105,9 +104,9 @@ public class AddCampaignDialog extends JFrame {
 		txtCampaignCode.setBounds(147, 120, 145, 26);
 		panel.add(txtCampaignCode);
 		Random rand = new Random();
-        int rand_int = 10000 + rand.nextInt(90000);
-        txtCampaignCode.setText(String.valueOf(rand_int));
-		
+		int rand_int = 10000 + rand.nextInt(90000);
+		txtCampaignCode.setText(String.valueOf(rand_int));
+
 		txtStatus = new JTextField();
 		txtStatus.setEditable(false);
 		txtStatus.setColumns(10);
@@ -116,26 +115,25 @@ public class AddCampaignDialog extends JFrame {
 		txtStatus.setText("New");
 		txtStatus.setHorizontalAlignment(SwingConstants.CENTER);
 
-		
 		txtContent = new JTextField();
 		txtContent.setColumns(10);
 		txtContent.setBounds(461, 45, 145, 26);
 		panel.add(txtContent);
-		
+
 		SpinnerDateModel model = new SpinnerDateModel();
-		model.setCalendarField(Calendar.SECOND); 
+		model.setCalendarField(Calendar.SECOND);
 		JSpinner spinner = new JSpinner(model);
 		JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "HH:mm:ss");
 		spinner.setEditor(editor);
 		spinner.setBounds(461, 120, 145, 26);
-		JSpinner.DefaultEditor editor1 = (JSpinner.DefaultEditor)spinner.getEditor();
+		JSpinner.DefaultEditor editor1 = (JSpinner.DefaultEditor) spinner.getEditor();
 		editor1.getTextField().setHorizontalAlignment(JTextField.CENTER);
 		panel.add(spinner);
-		
+
 		JLabel lblTimestamp_1_1 = new JLabel("hh : mm : ss");
 		lblTimestamp_1_1.setBounds(324, 116, 127, 26);
 		panel.add(lblTimestamp_1_1);
-		
+
 		UtilDateModel model1 = new UtilDateModel();
 		Properties p = new Properties();
 		p.put("text.today", "Today");
@@ -148,40 +146,40 @@ public class AddCampaignDialog extends JFrame {
 		datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		datePicker.setBounds(461, 79, 145, 26);
 		panel.add(datePicker);
-		
+
 		JLabel lblTimestamp = new JLabel("Message content:");
 		lblTimestamp.setBounds(324, 47, 127, 26);
 		panel.add(lblTimestamp);
-		
+
 		JLabel lblTimestamp_1_1_1 = new JLabel("Status:");
 		lblTimestamp_1_1_1.setBounds(324, 12, 127, 26);
 		panel.add(lblTimestamp_1_1_1);
-		
+
 		JLabel lblCampaignCode = new JLabel("Campaign code:");
 		lblCampaignCode.setBounds(10, 119, 127, 26);
 		panel.add(lblCampaignCode);
-		
+
 		List<CustomerLevel> customerLevels = DBOperation.queryCustomerLevel(conn);
-		for(CustomerLevel c : customerLevels) {
+		for (CustomerLevel c : customerLevels) {
 			cbTargetCustomer.addItem(c.getLevel());
 		}
 		JLabel lblTargetCampaign = new JLabel("Target Customer:");
 		lblTargetCampaign.setBounds(10, 83, 127, 26);
 		panel.add(lblTargetCampaign);
-		
+
 		JLabel lblCampaignName = new JLabel("Campaign Name:");
 		lblCampaignName.setBounds(10, 47, 127, 26);
 		panel.add(lblCampaignName);
-		
+
 		JLabel lblNewLabel = new JLabel("Campaign ID:");
 		lblNewLabel.setBounds(10, 11, 127, 26);
 		panel.add(lblNewLabel);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(10, 183, 616, 38);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -190,11 +188,11 @@ public class AddCampaignDialog extends JFrame {
 		});
 		btnCancel.setBounds(517, 11, 89, 23);
 		panel_1.add(btnCancel);
-		
+
 		JButton btnApply = new JButton("Apply");
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				String campaignId = txtCampaignId.getText();
 				String campaignName = txtCampaignName.getText();
 				String campaignCode = txtCampaignCode.getText();
@@ -215,7 +213,7 @@ public class AddCampaignDialog extends JFrame {
 				campaign.setMsg_content(content);
 				campaign.setTarget_customer(targetCustomer);
 				campaign.setCampaign_timestamp(taskRunningTime);
-				
+
 				String result = DBOperation.addCampaign(campaign, conn);
 				if ("Successful".equals(result)) {
 					JOptionPane.showMessageDialog(null, "Campaign added successfully!");

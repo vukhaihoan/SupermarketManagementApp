@@ -26,7 +26,6 @@ import sma.db.DBOperation;
 import sma.object.Campaign;
 import sma.business.CampaignTask;
 
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
@@ -64,16 +63,15 @@ public class CampaignManagement extends JFrame {
 		@Override
 		public Class<?> getColumnClass(int column) {
 			switch (column) {
-			case 0:
-				return Boolean.class;
-			default:
-				return String.class;
+				case 0:
+					return Boolean.class;
+				default:
+					return String.class;
 			}
 		}
 	};
-	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/supermarket", "phuocvo", "123456");
+	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
 	private JTextField txtStatus;
-
 
 	/**
 	 * Launch the application.
@@ -148,7 +146,7 @@ public class CampaignManagement extends JFrame {
 		panel.add(cbTargetCustomer);
 
 		List<CustomerLevel> customerLevels = DBOperation.queryCustomerLevel(conn);
-		for(CustomerLevel c : customerLevels) {
+		for (CustomerLevel c : customerLevels) {
 			cbTargetCustomer.addItem(c.getLevel());
 		}
 
@@ -177,12 +175,12 @@ public class CampaignManagement extends JFrame {
 		panel.add(lblTimestamp_1_1);
 
 		SpinnerDateModel model2 = new SpinnerDateModel();
-		model2.setCalendarField(Calendar.SECOND); 
+		model2.setCalendarField(Calendar.SECOND);
 		JSpinner spinner = new JSpinner(model2);
 		JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "HH:mm:ss");
 		spinner.setEditor(editor);
 		spinner.setBounds(147, 259, 145, 26);
-		JSpinner.DefaultEditor editor1 = (JSpinner.DefaultEditor)spinner.getEditor();
+		JSpinner.DefaultEditor editor1 = (JSpinner.DefaultEditor) spinner.getEditor();
 		editor1.getTextField().setHorizontalAlignment(JTextField.CENTER);
 		panel.add(spinner);
 
@@ -208,7 +206,7 @@ public class CampaignManagement extends JFrame {
 		panel_2.setBounds(10, 320, 302, 85);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
-		
+
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -221,7 +219,7 @@ public class CampaignManagement extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(authenticator()) {
+				if (authenticator()) {
 
 					AddCampaignDialog addCampaignDialog = new AddCampaignDialog();
 					addCampaignDialog.setLocationRelativeTo(null);
@@ -234,13 +232,12 @@ public class CampaignManagement extends JFrame {
 							table.scrollRectToVisible(table.getCellRect(lastRowIndex, 0, true));
 							btnReset.doClick();
 							int n = table.getRowCount();
-							table.setRowSelectionInterval(n-1, n-1);
+							table.setRowSelectionInterval(n - 1, n - 1);
 						}
 					});
 
+				}
 
-				}			
-			
 			}
 		});
 		btnAdd.setBounds(10, 10, 123, 28);
@@ -268,13 +265,14 @@ public class CampaignManagement extends JFrame {
 		btnNewButton_1_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				int result = JOptionPane.showOptionDialog(null, "Confirm to delete?", "Confirm Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
-				if(result == JOptionPane.YES_OPTION) {
+				int result = JOptionPane.showOptionDialog(null, "Confirm to delete?", "Confirm Delete",
+						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+				if (result == JOptionPane.YES_OPTION) {
 
 					int rowCount = table.getRowCount();
 					for (int i = rowCount - 1; i >= 0; i--) {
-						if(Boolean.TRUE.equals(table.getValueAt(i, 0))) {
-							int campaignId = Integer.parseInt(table.getValueAt(i,1).toString());
+						if (Boolean.TRUE.equals(table.getValueAt(i, 0))) {
+							int campaignId = Integer.parseInt(table.getValueAt(i, 1).toString());
 							DBOperation.deleteCampaign(campaignId, conn);
 						}
 					}
@@ -285,8 +283,6 @@ public class CampaignManagement extends JFrame {
 		btnNewButton_1_2.setBounds(10, 48, 123, 28);
 		panel_2.add(btnNewButton_1_2);
 
-
-
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(322, 10, 735, 259);
 		contentPane.add(scrollPane);
@@ -295,10 +291,10 @@ public class CampaignManagement extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int row = table.getSelectedRow();
-				if(row == -1) {
+				if (row == -1) {
 					JOptionPane.showMessageDialog(null, "Please choose a campaign to execute!");
 					return;
-				}else {
+				} else {
 					Timer timer = new Timer(); // creating timer
 					TimerTask task = new CampaignTask(); // creating timer task
 					String selectedDate = datePicker.getJFormattedTextField().getText();
@@ -310,9 +306,10 @@ public class CampaignManagement extends JFrame {
 						SimpleDateFormat targetFormat = new SimpleDateFormat("HH:mm:ss");
 						String formattedTime = targetFormat.format(date);
 						Date taskRunningTime = null;
-						taskRunningTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(selectedDate + " " + formattedTime);
+						taskRunningTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+								.parse(selectedDate + " " + formattedTime);
 						System.out.println("Performing the given task");
-						timer.schedule(task, taskRunningTime ); // scheduling the task
+						timer.schedule(task, taskRunningTime); // scheduling the task
 					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -334,15 +331,15 @@ public class CampaignManagement extends JFrame {
 				txtCampaignName.setText(table.getValueAt(row, 2).toString());
 				setCustomerLevel(table.getValueAt(row, 3).toString(), cbTargetCustomer);
 				txtCampaignCode.setText(table.getValueAt(row, 4).toString());
-				if(table.getValueAt(row, 5).toString().equals(null)) {
+				if (table.getValueAt(row, 5).toString().equals(null)) {
 					txtStatus.setText(null);
-				}else {
+				} else {
 					txtStatus.setText(table.getValueAt(row, 5).toString());
 				}
 				txtContent.setText(table.getValueAt(row, 6).toString());
 				String date = String.valueOf(table.getValueAt(row, 7));
 				datePicker.getJFormattedTextField().setText(date.substring(0, 10));
-				String txtTime = date.substring(11,19);
+				String txtTime = date.substring(11, 19);
 				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 				Date date1;
 				try {
@@ -353,11 +350,10 @@ public class CampaignManagement extends JFrame {
 					e1.printStackTrace();
 				}
 
-
-
 			}
 		});
-		String[] columnNames = {"", "Campaign ID", "Campaign Name", "Target_customer", "Campaign Code", "status", "Msg_content", "Campaign_timestamp"};
+		String[] columnNames = { "", "Campaign ID", "Campaign Name", "Target_customer", "Campaign Code", "status",
+				"Msg_content", "Campaign_timestamp" };
 		model.setColumnIdentifiers(columnNames);
 		scrollPane.setViewportView(table);
 		searchData();
@@ -367,27 +363,27 @@ public class CampaignManagement extends JFrame {
 		TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
 		table.setRowSorter(sorter);
 
-
-
 	}
+
 	public void setCustomerLevel(String level, JComboBox cb) {
 
-		for(int i = 0; i < cb.getItemCount(); i++) {
+		for (int i = 0; i < cb.getItemCount(); i++) {
 
-			if(cb.getItemAt(i).equals(level)) {
+			if (cb.getItemAt(i).equals(level)) {
 				cb.setSelectedItem(level);
 			}
 		}
 	}
+
 	public void searchData() {
 
 		List<Campaign> campaigns = DBOperation.queryCampaign(conn);
 
 		table.setModel(model);
-		while( model.getRowCount() > 0) {
+		while (model.getRowCount() > 0) {
 			model.removeRow(0);
 		}
-		for(Campaign c : campaigns) {
+		for (Campaign c : campaigns) {
 			Object[] o = new Object[10];
 			o[0] = false;
 			o[1] = c.getCampaignId();
@@ -403,19 +399,21 @@ public class CampaignManagement extends JFrame {
 		this.invalidate();
 		this.repaint();
 	}
+
 	public boolean authenticator() {
 
-		if(txtCampaignId.getText().equals(null) || txtCampaignName.equals(null) || 
+		if (txtCampaignId.getText().equals(null) || txtCampaignName.equals(null) ||
 				txtCampaignCode.getText().equals(null) || txtStatus.getText().equals(null) ||
 				txtContent.getText().equals(null) || equals(null)) {
 
 			JOptionPane.showMessageDialog(null, "Please fill all empty field!");
 			return false;
 
-		}else {
+		} else {
 			return true;
 		}
 	}
+
 	public Campaign getCampaign(JComboBox cb, SpinnerDateModel model2) {
 		String campaignId = txtCampaignId.getText();
 		String campaignName = txtCampaignName.getText();

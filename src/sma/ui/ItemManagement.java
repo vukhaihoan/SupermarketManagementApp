@@ -46,14 +46,14 @@ public class ItemManagement extends JFrame {
 		@Override
 		public Class<?> getColumnClass(int column) {
 			switch (column) {
-			case 0:
-				return Boolean.class;
-			default:
-				return String.class;
+				case 0:
+					return Boolean.class;
+				default:
+					return String.class;
 			}
 		}
 	};
-	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/supermarket", "phuocvo", "123456");
+	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
 
 	/**
 	 * Launch the application.
@@ -62,8 +62,8 @@ public class ItemManagement extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					ItemManagement frame = new ItemManagement();
-//					frame.setVisible(true);
+					// ItemManagement frame = new ItemManagement();
+					// frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -156,7 +156,7 @@ public class ItemManagement extends JFrame {
 		cbCategory.setBounds(716, 36, 129, 26);
 		panel_1.add(cbCategory);
 
-		for(Category c : categories) {
+		for (Category c : categories) {
 
 			cbCategory.addItem(c.getCategory());
 
@@ -167,7 +167,7 @@ public class ItemManagement extends JFrame {
 		cbMeasurement.setBounds(108, 91, 129, 26);
 		panel_1.add(cbMeasurement);
 
-		for(Measurement m : measurements) {
+		for (Measurement m : measurements) {
 
 			cbMeasurement.addItem(m.getMeasurement());
 
@@ -193,8 +193,8 @@ public class ItemManagement extends JFrame {
 
 			}
 		});
-		String[] columnNames = {"", "Item ID", "Item Name", "Category", "Measurement", "Remaining", "Unit Price"};
-		(model).setColumnIdentifiers(columnNames);	
+		String[] columnNames = { "", "Item ID", "Item Name", "Category", "Measurement", "Remaining", "Unit Price" };
+		(model).setColumnIdentifiers(columnNames);
 
 		scrollPane.setViewportView(table);
 		searchData();
@@ -221,7 +221,7 @@ public class ItemManagement extends JFrame {
 						txtQuantity.setText("");
 						txtUnitPrice.setText("");
 						cbCategory.setSelectedItem(null);
-						cbMeasurement.setSelectedItem(null);   
+						cbMeasurement.setSelectedItem(null);
 						searchData();
 					}
 				});
@@ -252,13 +252,13 @@ public class ItemManagement extends JFrame {
 				int quantity = Integer.parseInt(txtQuantity.getText());
 				float unitPrice = Float.parseFloat(txtUnitPrice.getText());
 				Item item = new Item();
-				if(itemId == 0 || itemName == null || itemName.isEmpty()
+				if (itemId == 0 || itemName == null || itemName.isEmpty()
 						|| category == null || category.isEmpty() || measurement == null || measurement.isEmpty()
-						|| txtQuantity == null || txtQuantity.getText().isEmpty() || txtUnitPrice == null || txtUnitPrice.getText().isEmpty())
-				{
-					JOptionPane.showMessageDialog(null,"Please fill in all the required information.");
+						|| txtQuantity == null || txtQuantity.getText().isEmpty() || txtUnitPrice == null
+						|| txtUnitPrice.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Please fill in all the required information.");
 
-				}else {
+				} else {
 
 					item.setItemId(itemId);
 					item.setItemName(itemName);
@@ -280,18 +280,20 @@ public class ItemManagement extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				int result = JOptionPane.showOptionDialog(null, "Confirm to delete?", "Confirm Delete", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
+				int result = JOptionPane.showOptionDialog(null, "Confirm to delete?", "Confirm Delete",
+						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
 
-				if(result == JOptionPane.YES_OPTION) {
+				if (result == JOptionPane.YES_OPTION) {
 					int column = 1;
 					int row = table.getSelectedRow();
 					int selectedItemId = Integer.parseInt(table.getModel().getValueAt(row, column).toString());
 					Vector<Integer> v = new Vector<>();
-					for(int i=0;i<table.getRowCount();i++) {
+					for (int i = 0; i < table.getRowCount(); i++) {
 
-						if(table.getValueAt(i, 0).toString() == "true") v.add(Integer.parseInt(table.getValueAt(i, 1).toString()));
+						if (table.getValueAt(i, 0).toString() == "true")
+							v.add(Integer.parseInt(table.getValueAt(i, 1).toString()));
 					}
-					for(int i=0;i<v.size();i++) {
+					for (int i = 0; i < v.size(); i++) {
 
 						DBOperation.deleteItem(v.get(i), conn);
 					}
@@ -303,10 +305,9 @@ public class ItemManagement extends JFrame {
 					cbCategory.setSelectedItem(null);
 					cbMeasurement.setSelectedItem(null);
 					searchData();
-				}else {
+				} else {
 
 				}
-
 
 			}
 		});
@@ -332,12 +333,12 @@ public class ItemManagement extends JFrame {
 		JButton btnCancel = new JButton("Log out");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(i == 13) {
+				if (i == 13) {
 					LogInDialog logInDialog = new LogInDialog();
 					logInDialog.setLocationRelativeTo(null);
 					logInDialog.setVisible(true);
-					dispose();	
-				}else {
+					dispose();
+				} else {
 					AdminManagement adminManagement = new AdminManagement(i);
 					adminManagement.setLocationRelativeTo(null);
 					adminManagement.setVisible(true);
@@ -349,12 +350,9 @@ public class ItemManagement extends JFrame {
 		panel_2.add(btnCancel);
 	}
 
-	public static void setSelectedValue(JComboBox comboBox, String value)
-	{
-		for (int i = 0; i < comboBox.getItemCount(); i++)
-		{
-			if (comboBox.getItemAt(i).equals(value))
-			{
+	public static void setSelectedValue(JComboBox comboBox, String value) {
+		for (int i = 0; i < comboBox.getItemCount(); i++) {
+			if (comboBox.getItemAt(i).equals(value)) {
 				comboBox.setSelectedIndex(i);
 				break;
 			}
@@ -363,22 +361,21 @@ public class ItemManagement extends JFrame {
 
 	public void searchData() {
 
-		Map <String, String> conditionMap = new HashMap <String, String>();
-
+		Map<String, String> conditionMap = new HashMap<String, String>();
 
 		String itemName = txtItemName.getText();
-		if(txtItemId.getText() != null && !txtItemId.getText().isEmpty()) {
+		if (txtItemId.getText() != null && !txtItemId.getText().isEmpty()) {
 			conditionMap.put(DBOperation.itemId, txtItemId.getText());
 		}
-		if(itemName != null && !itemName.isEmpty()) {
+		if (itemName != null && !itemName.isEmpty()) {
 			conditionMap.put(DBOperation.itemName, itemName);
 		}
 		List<Item> items = DBOperation.queryItem(conditionMap, conn);
 		table.setModel(model);
 
-		while( model.getRowCount() > 0) {
+		while (model.getRowCount() > 0) {
 			model.removeRow(0);
-		}		
+		}
 		for (Item s : items) {
 			Object[] o = new Object[10];
 			o[0] = false;

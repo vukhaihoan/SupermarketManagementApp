@@ -35,7 +35,7 @@ public class DBOperation {
 	public static final String boothId = "boothId";
 	public static final String boothName = "boothName";
 	public static final String total = "total";
-	public static final String itemId = "itemId"; 
+	public static final String itemId = "itemId";
 	public static final String itemName = "itemName";
 	public static final String category = "category";
 	public static final String measurement = "measurement";
@@ -46,13 +46,14 @@ public class DBOperation {
 	public static final String isActive = "isActive";
 
 	/**
-	 * create connection 
+	 * create connection
+	 * 
 	 * @param dbUrl
 	 * @param dbUserId
 	 * @param dbPassword
 	 * @return
 	 */
-	public static Connection createConnection (String dbUrl, String dbUserId, String dbPassword) {
+	public static Connection createConnection(String dbUrl, String dbUserId, String dbPassword) {
 
 		Connection conn = null;
 		try {
@@ -68,7 +69,7 @@ public class DBOperation {
 		return conn;
 	}
 
-	public static String insertCustomer (Customer customer, Connection conn) {
+	public static String insertCustomer(Customer customer, Connection conn) {
 
 		String sql = "INSERT INTO CUSTOMERS (CUSTOMER_ID, CUSTOMER_NAME, PHONENUMBERS, ADDRESS, LEVEL, IS_ACTIVE) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -82,14 +83,13 @@ public class DBOperation {
 			statement.setString(5, "NEW");
 			statement.setString(6, "Y");
 
-
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
 				System.out.println("A new user was inserted successfully!");
 				return "Successful";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return "Failed";
@@ -113,16 +113,16 @@ public class DBOperation {
 				return "Successful";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return "Failed";
 	}
-	
+
 	public static String updateRemoveCustomer(Customer customer, Connection conn) {
-		
+
 		String sql = "UPDATE CUSTOMERS SET IS_ACTIVE=? WHERE CUSTOMER_ID=?";
-		
+
 		try {
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -135,7 +135,7 @@ public class DBOperation {
 				return "Successful";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return "Failed";
@@ -156,14 +156,14 @@ public class DBOperation {
 				return "Delete successfully";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return "Failed";
 
 	}
-	
-	//public static boolean checkExistCustomers()
+
+	// public static boolean checkExistCustomers()
 
 	public static boolean checkExistPhonenumbers(String phoneNumber, Connection conn) {
 
@@ -173,7 +173,7 @@ public class DBOperation {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setString(1, phoneNumber);
 			ResultSet result = statement.executeQuery();
-			while(result.next()) {
+			while (result.next()) {
 
 				return true;
 			}
@@ -184,17 +184,16 @@ public class DBOperation {
 		return false;
 	}
 
-
 	public static Customer queryCustomer(int customerId, Connection conn) {
 
-		String sql = "SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = '" + customerId + "'" ;
+		String sql = "SELECT * FROM CUSTOMERS WHERE CUSTOMER_ID = '" + customerId + "'";
 
 		Customer customer = new Customer();
 		try {
 
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
-			while (result.next()){
+			while (result.next()) {
 
 				int customerId1 = result.getInt("CUSTOMER_ID");
 				String customerName = result.getString("CUSTOMER_NAME");
@@ -208,7 +207,6 @@ public class DBOperation {
 				customer.setAddress(address);
 				customer.setLevel(level);
 
-
 			}
 		} catch (SQLException e) {
 
@@ -220,77 +218,75 @@ public class DBOperation {
 
 	public static List<Customer> queryCustomer(Map<String, String> conditionMap, Connection conn) {
 
-	    String sql = "SELECT * FROM CUSTOMERS WHERE IS_ACTIVE = 'Y' AND ";
+		String sql = "SELECT * FROM CUSTOMERS WHERE IS_ACTIVE = 'Y' AND ";
 
-	    if(conditionMap == null || conditionMap.isEmpty()) {
-	        sql = sql.replace(" AND ", "");
-	    }
+		if (conditionMap == null || conditionMap.isEmpty()) {
+			sql = sql.replace(" AND ", "");
+		}
 
-	    boolean needAnd = false;
+		boolean needAnd = false;
 
-	    if(conditionMap.containsKey(customerName)) {
+		if (conditionMap.containsKey(customerName)) {
 
-	        sql = sql + "LOWER(CUSTOMER_NAME) LIKE LOWER('" + conditionMap.get(customerName) + "')"; 
-	        needAnd = true;
-	    }
+			sql = sql + "LOWER(CUSTOMER_NAME) LIKE LOWER('" + conditionMap.get(customerName) + "')";
+			needAnd = true;
+		}
 
-	    if(conditionMap.containsKey(phoneNumbers)) {
+		if (conditionMap.containsKey(phoneNumbers)) {
 
-	        if(needAnd) {
-	            sql = sql + " AND ";
-	        }
-	        sql = sql + "LOWER(PHONENUMBERS) LIKE LOWER('" + conditionMap.get(phoneNumbers) + "')"; 
-	        needAnd = true;
-	    }
+			if (needAnd) {
+				sql = sql + " AND ";
+			}
+			sql = sql + "LOWER(PHONENUMBERS) LIKE LOWER('" + conditionMap.get(phoneNumbers) + "')";
+			needAnd = true;
+		}
 
-	    if(conditionMap.containsKey(address)) {
+		if (conditionMap.containsKey(address)) {
 
-	        if(needAnd) {
-	            sql = sql + " AND ";
-	        }
-	        sql = sql + "LOWER(ADDRESS) LIKE LOWER('" + conditionMap.get(address) + "')"; 
+			if (needAnd) {
+				sql = sql + " AND ";
+			}
+			sql = sql + "LOWER(ADDRESS) LIKE LOWER('" + conditionMap.get(address) + "')";
 
-	    }
+		}
 
-	    if(conditionMap.containsKey(level)) {
+		if (conditionMap.containsKey(level)) {
 
-	        if(needAnd) {
-	            sql = sql + " AND ";
-	        }
-	        sql = sql + "LOWER(LEVEL) LIKE LOWER('" + conditionMap.get(level) + "')"; 
+			if (needAnd) {
+				sql = sql + " AND ";
+			}
+			sql = sql + "LOWER(LEVEL) LIKE LOWER('" + conditionMap.get(level) + "')";
 
-	    }
-	    List<Customer> customers = new ArrayList<Customer>();
+		}
+		List<Customer> customers = new ArrayList<Customer>();
 
-	    try {
+		try {
 
-	        Statement statement = conn.createStatement();
-	        ResultSet result = statement.executeQuery(sql);
-	        while (result.next()){
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			while (result.next()) {
 
-	            int customerId = result.getInt("CUSTOMER_ID");
-	            String customerName = result.getString("CUSTOMER_NAME");
-	            String phoneNumbers = result.getString("PHONENUMBERS");
-	            String address = result.getString("ADDRESS");
-	            String level = result.getString("LEVEL");
+				int customerId = result.getInt("CUSTOMER_ID");
+				String customerName = result.getString("CUSTOMER_NAME");
+				String phoneNumbers = result.getString("PHONENUMBERS");
+				String address = result.getString("ADDRESS");
+				String level = result.getString("LEVEL");
 
-	            Customer customer = new Customer();
-	            customer.setCustomerId(customerId);
-	            customer.setCustomerName(customerName);
-	            customer.setPhoneNumbers(phoneNumbers);
-	            customer.setAddress(address);
-	            customer.setLevel(level);
+				Customer customer = new Customer();
+				customer.setCustomerId(customerId);
+				customer.setCustomerName(customerName);
+				customer.setPhoneNumbers(phoneNumbers);
+				customer.setAddress(address);
+				customer.setLevel(level);
 
-	            customers.add(customer);
+				customers.add(customer);
 
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return customers;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return customers;
 	}
-
-
 
 	public static String insertItem(Item item, Connection conn) {
 
@@ -306,20 +302,19 @@ public class DBOperation {
 			statement.setInt(5, item.getQuantity());
 			statement.setFloat(6, item.getUnitPrice());
 
-
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
 				System.out.println("A new item was inserted successfully!");
 				return "Insert successfully";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return "Failed";
 	}
 
-	public static List<Item> searchSelectedItem(int invoiceId, Connection conn){
+	public static List<Item> searchSelectedItem(int invoiceId, Connection conn) {
 
 		String sql = "SELECT * FROM INVOICE_DETAIL WHERE INVOICE_ID= '" + invoiceId + "'";
 
@@ -328,7 +323,7 @@ public class DBOperation {
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
-			while(result.next()) {
+			while (result.next()) {
 
 				int itemId = result.getInt("ITEM_ID");
 				String itemName = result.getString("ITEM_NAME");
@@ -344,7 +339,7 @@ public class DBOperation {
 				items.add(item);
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 
@@ -371,7 +366,7 @@ public class DBOperation {
 				return "Successful";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return "Failed";
@@ -392,14 +387,14 @@ public class DBOperation {
 				return "Delete successfully";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return "Failed";
 
 	}
 
-	public static Item queryItem(int itemId, Connection conn ) {
+	public static Item queryItem(int itemId, Connection conn) {
 
 		String sql = "SELECT * FROM ITEMS WHERE ITEM_ID= '" + itemId + "'";
 
@@ -409,8 +404,7 @@ public class DBOperation {
 
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
-			while (result.next()){
-
+			while (result.next()) {
 
 				String itemName = result.getString("ITEM_NAME");
 				String category = result.getString("CATEGORY");
@@ -438,60 +432,60 @@ public class DBOperation {
 
 		String sql = "SELECT * FROM ITEMS WHERE ";
 
-		if(conditionMap == null || conditionMap.isEmpty()) {
+		if (conditionMap == null || conditionMap.isEmpty()) {
 			sql = sql.replace("WHERE", "");
 		}
 
 		boolean needAnd = false;
 
-		if(conditionMap.containsKey(itemId)) {
+		if (conditionMap.containsKey(itemId)) {
 
-			sql = sql + "ITEM_ID = '" + conditionMap.get(itemId) + "'"; 
+			sql = sql + "ITEM_ID = '" + conditionMap.get(itemId) + "'";
 			needAnd = true;
 		}
 
-		if(conditionMap.containsKey(itemName)) {
+		if (conditionMap.containsKey(itemName)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "ITEM_NAME = '" + conditionMap.get(itemName) + "'"; 
+			sql = sql + "ITEM_NAME = '" + conditionMap.get(itemName) + "'";
 			needAnd = true;
 		}
 
-		if(conditionMap.containsKey(category)) {
+		if (conditionMap.containsKey(category)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "CATEGORY = '" + conditionMap.get(category) + "'"; 
+			sql = sql + "CATEGORY = '" + conditionMap.get(category) + "'";
 			needAnd = true;
 		}
 
-		if(conditionMap.containsKey(measurement)) {
+		if (conditionMap.containsKey(measurement)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "MEASUREMENT = '" + conditionMap.get(measurement) + "'"; 
+			sql = sql + "MEASUREMENT = '" + conditionMap.get(measurement) + "'";
 			needAnd = true;
 		}
 
-		if(conditionMap.containsKey(quantity)) {
+		if (conditionMap.containsKey(quantity)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "QUANTITY = '" + conditionMap.get(quantity) + "'"; 
+			sql = sql + "QUANTITY = '" + conditionMap.get(quantity) + "'";
 			needAnd = true;
 		}
 
-		if(conditionMap.containsKey(unitPrice)) {
+		if (conditionMap.containsKey(unitPrice)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "UNIT_PRICE = '" + conditionMap.get(unitPrice) + "'"; 
+			sql = sql + "UNIT_PRICE = '" + conditionMap.get(unitPrice) + "'";
 		}
 
 		List<Item> items = new ArrayList<Item>();
@@ -500,7 +494,7 @@ public class DBOperation {
 
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
-			while (result.next()){
+			while (result.next()) {
 
 				int itemId = result.getInt("ITEM_ID");
 				String itemName = result.getString("ITEM_NAME");
@@ -527,7 +521,6 @@ public class DBOperation {
 		return items;
 
 	}
-
 
 	public static List<Item> querySelectedItem(Connection conn) {
 
@@ -578,36 +571,36 @@ public class DBOperation {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
 
-			while (result.next()){
+			while (result.next()) {
 
 				booth.setBoothId(result.getInt("booth_ID"));
 				booth.setBoothName(result.getString("booth_NAME"));
 
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 
 		return booth;
 	}
-	
-	public static List<CustomerLevel> queryCustomerLevel(Connection conn){
-		
+
+	public static List<CustomerLevel> queryCustomerLevel(Connection conn) {
+
 		String sql = "SELECT * FROM CUSTOMER_LEVEL";
 		List<CustomerLevel> customerLevels = new ArrayList<CustomerLevel>();
-		
+
 		try {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
-			while(result.next()) {
-				
+			while (result.next()) {
+
 				CustomerLevel customerLevel = new CustomerLevel();
 				customerLevel.setLevel(result.getString("LEVEL"));
-				
+
 				customerLevels.add(customerLevel);
 			}
-			
-		}catch (SQLException e) {
+
+		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 		return customerLevels;
@@ -622,20 +615,20 @@ public class DBOperation {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
 
-			while (result.next()){
+			while (result.next()) {
 
 				booth.setBoothId(result.getInt("booth_ID"));
 				booth.setBoothName(result.getString("booth_NAME"));
 
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 
 		return booth;
 	}
 
-	public static List <Booth> queryBoothInfo (Connection conn){
+	public static List<Booth> queryBoothInfo(Connection conn) {
 
 		String sql = " SELECT B.BOOTH_ID, B.BOOTH_NAME FROM BOOTH_INFO B "
 				+ "left JOIN CUSTOMER_INVOICE C "
@@ -649,8 +642,7 @@ public class DBOperation {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
 
-			while (result.next()){
-
+			while (result.next()) {
 
 				Booth booth = new Booth();
 
@@ -662,7 +654,7 @@ public class DBOperation {
 
 			statement.close();
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -671,7 +663,7 @@ public class DBOperation {
 
 	}
 
-	public static List<Level> queryLevels ( Connection conn) {
+	public static List<Level> queryLevels(Connection conn) {
 
 		String sql = "SELECT * FROM LEVEL";
 
@@ -680,14 +672,14 @@ public class DBOperation {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
 
-			while(result.next()) {
+			while (result.next()) {
 				String level = result.getString("LEVEL");
 
 				Level level1 = new Level();
 				level1.setLevel(level);
 				levels.add(level1);
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
@@ -695,7 +687,7 @@ public class DBOperation {
 		return levels;
 	}
 
-	public static List<Category> queryCategories (Connection conn){
+	public static List<Category> queryCategories(Connection conn) {
 
 		String sql = "SELECT * FROM CATEGORIES";
 
@@ -704,15 +696,13 @@ public class DBOperation {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
 
-			while (result.next()){
+			while (result.next()) {
 				String category = result.getString("CATEGORY");
 
 				Category category1 = new Category();
 				category1.setCategory(category);
 				categories.add(category1);
 			}
-
-
 
 		} catch (SQLException e) {
 
@@ -731,15 +721,13 @@ public class DBOperation {
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
 
-			while (result.next()){
+			while (result.next()) {
 				String measurement = result.getString("MEASUREMENT");
 
 				Measurement measurement2 = new Measurement();
 				measurement2.setMeasurement(measurement);
 				measurements.add(measurement2);
 			}
-
-
 
 		} catch (SQLException e) {
 
@@ -748,9 +736,9 @@ public class DBOperation {
 		return measurements;
 	}
 
-	public static List<Invoice> queryInvoice(String customerId, Connection conn){
+	public static List<Invoice> queryInvoice(String customerId, Connection conn) {
 
-		String sql = "SELECT * FROM CUSTOMER_INVOICE WHERE CUSTOMER_ID = '" + customerId + "'" ;
+		String sql = "SELECT * FROM CUSTOMER_INVOICE WHERE CUSTOMER_ID = '" + customerId + "'";
 
 		List<Invoice> invoices = new ArrayList<>();
 
@@ -758,7 +746,7 @@ public class DBOperation {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
 
-			while (result.next()){
+			while (result.next()) {
 				int invoiceId = result.getInt("INVOICE_ID");
 				String tradingTime = result.getString("TRADING_TIME");
 				int boothId = result.getInt("BOOTH_ID");
@@ -777,7 +765,7 @@ public class DBOperation {
 				System.out.print("Get an invoice successfully!");
 
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
@@ -785,51 +773,51 @@ public class DBOperation {
 		return invoices;
 	}
 
-	public static List<Invoice> queryInvoice(Map<String, String> conditionMap, Connection conn){
+	public static List<Invoice> queryInvoice(Map<String, String> conditionMap, Connection conn) {
 
 		String sql = "SELECT * FROM CUSTOMER_INVOICE WHERE ";
 
-		if(conditionMap == null || conditionMap.isEmpty()) {
+		if (conditionMap == null || conditionMap.isEmpty()) {
 			sql = sql.replace("WHERE", "");
 		}
 
 		boolean needAnd = false;
 
-		if(conditionMap.containsKey(customerId)) {
+		if (conditionMap.containsKey(customerId)) {
 
-			sql = sql + "CUSTOMER_ID = '" + conditionMap.get(customerId) + "'"; 
+			sql = sql + "CUSTOMER_ID = '" + conditionMap.get(customerId) + "'";
 			needAnd = true;
 		}
-		if(conditionMap.containsKey(invoiceId)) {
+		if (conditionMap.containsKey(invoiceId)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "INVOICE_ID = '" + conditionMap.get(invoiceId) + "'"; 
+			sql = sql + "INVOICE_ID = '" + conditionMap.get(invoiceId) + "'";
 			needAnd = true;
 		}
-		if(conditionMap.containsKey(tradingTime)) {
+		if (conditionMap.containsKey(tradingTime)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "TRADING_TIME = '" + conditionMap.get(tradingTime) + "'"; 
+			sql = sql + "TRADING_TIME = '" + conditionMap.get(tradingTime) + "'";
 			needAnd = true;
 		}
-		if(conditionMap.containsKey(boothId)) {
+		if (conditionMap.containsKey(boothId)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "BOOTH_ID = '" + conditionMap.get(boothId) + "'"; 
+			sql = sql + "BOOTH_ID = '" + conditionMap.get(boothId) + "'";
 			needAnd = true;
 		}
-		if(conditionMap.containsKey(total)) {
+		if (conditionMap.containsKey(total)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "TOTAL = '" + conditionMap.get(total) + "'"; 
+			sql = sql + "TOTAL = '" + conditionMap.get(total) + "'";
 			needAnd = true;
 		}
 
@@ -839,7 +827,7 @@ public class DBOperation {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
 
-			while (result.next()){
+			while (result.next()) {
 				int invoiceId = result.getInt("INVOICE_ID");
 				String tradingTime = result.getString("TRADING_TIME");
 				int boothId = result.getInt("BOOTH_ID");
@@ -853,10 +841,10 @@ public class DBOperation {
 				invoices.add(invoice);
 			}
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 
 			e.printStackTrace();
-		}		
+		}
 		return invoices;
 	}
 
@@ -864,51 +852,51 @@ public class DBOperation {
 
 		String sql = "SELECT * FROM INVOICE_DETAIL WHERE ";
 
-		if(conditionMap == null || conditionMap.isEmpty()) {
+		if (conditionMap == null || conditionMap.isEmpty()) {
 			sql = sql.replace("WHERE", "");
 		}
 
 		boolean needAnd = false;
 
-		if(conditionMap.containsKey(invoiceId)) {
+		if (conditionMap.containsKey(invoiceId)) {
 
-			sql = sql + "INVOICE_ID = '" + conditionMap.get(invoiceId) + "'"; 
+			sql = sql + "INVOICE_ID = '" + conditionMap.get(invoiceId) + "'";
 			needAnd = true;
 		}
 
-		if(conditionMap.containsKey(itemId)) {
+		if (conditionMap.containsKey(itemId)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "ITEM_ID = '" + conditionMap.get(itemId) + "'"; 
+			sql = sql + "ITEM_ID = '" + conditionMap.get(itemId) + "'";
 			needAnd = true;
 		}
 
-		if(conditionMap.containsKey(itemName)) {
+		if (conditionMap.containsKey(itemName)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "ITEM_NAME = '" + conditionMap.get(itemName) + "'"; 
+			sql = sql + "ITEM_NAME = '" + conditionMap.get(itemName) + "'";
 			needAnd = true;
 		}
 
-		if(conditionMap.containsKey(quantity)) {
+		if (conditionMap.containsKey(quantity)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "QUANTITY = '" + conditionMap.get(quantity) + "'"; 
+			sql = sql + "QUANTITY = '" + conditionMap.get(quantity) + "'";
 			needAnd = true;
 		}
 
-		if(conditionMap.containsKey(unitPrice)) {
+		if (conditionMap.containsKey(unitPrice)) {
 
-			if(needAnd) {
+			if (needAnd) {
 				sql = sql + " AND ";
 			}
-			sql = sql + "UNIT_PRICE = '" + conditionMap.get(unitPrice) + "'"; 
+			sql = sql + "UNIT_PRICE = '" + conditionMap.get(unitPrice) + "'";
 		}
 
 		List<Item> items = new ArrayList<Item>();
@@ -917,7 +905,7 @@ public class DBOperation {
 
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
-			while (result.next()){
+			while (result.next()) {
 
 				int itemId = result.getInt("ITEM_ID");
 				String itemName = result.getString("ITEM_NAME");
@@ -943,14 +931,14 @@ public class DBOperation {
 
 	public static List<Item> queryItemInIvoice(String invoiceId, Connection conn) {
 
-		String sql = "SELECT * FROM INVOICE_DETAIL WHERE INVOICE_ID = '" + invoiceId + "'" ;
+		String sql = "SELECT * FROM INVOICE_DETAIL WHERE INVOICE_ID = '" + invoiceId + "'";
 
 		List<Item> items = new ArrayList<>();
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
 
-			while (result.next()){
+			while (result.next()) {
 				int itemId = result.getInt("ITEM_ID");
 				String itemName = result.getString("ITEM_NAME");
 				int quantity = result.getInt("QUANTITY");
@@ -970,7 +958,7 @@ public class DBOperation {
 				System.out.print("Get an invoice successfully!");
 
 			}
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 
 			e.printStackTrace();
 		}
@@ -986,14 +974,14 @@ public class DBOperation {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
 
-			if (result.next()){
+			if (result.next()) {
 				max = result.getInt("MAX");
 			}
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Max invoice id = " + max );
+		System.out.println("Max invoice id = " + max);
 		return max;
 	}
 
@@ -1005,33 +993,33 @@ public class DBOperation {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
 
-			if (result.next()){
+			if (result.next()) {
 				max = result.getInt("MAX");
 			}
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Max customer id = " + max );
+		System.out.println("Max customer id = " + max);
 		return max;
 	}
 
 	public static int getMaxItemId(Connection conn) {
 
 		String sql = "SELECT MAX(ITEM_ID) AS MAX FROM ITEMS ";
-		int max =0;
+		int max = 0;
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
 
-			if (result.next()){
+			if (result.next()) {
 				max = result.getInt("MAX");
 			}
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Max item id = " + max );
+		System.out.println("Max item id = " + max);
 		return max;
 
 	}
@@ -1051,7 +1039,6 @@ public class DBOperation {
 		return false;
 	}
 
-
 	public static Customer queryCustomerByPhone(String phoneNumbers, Connection conn) {
 
 		String sql = "SELECT * FROM CUSTOMERS WHERE PHONENUMBERS = '" + phoneNumbers + "'";
@@ -1061,7 +1048,7 @@ public class DBOperation {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
 
-			while(result.next()) {
+			while (result.next()) {
 
 				int customerId1 = result.getInt("CUSTOMER_ID");
 				String customerName = result.getString("CUSTOMER_NAME");
@@ -1076,10 +1063,9 @@ public class DBOperation {
 				customer.setLevel(level);
 			}
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 
 		return customer;
 
@@ -1107,7 +1093,7 @@ public class DBOperation {
 				return "Successful";
 			}
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
@@ -1129,14 +1115,13 @@ public class DBOperation {
 			statement.setFloat(5, item.getUnitPrice());
 			statement.setString(6, currentTime);
 
-
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
 				System.out.println("A new invoice_detail was inserted successfully!");
 				return "A new Invoice Detail was inserted successfully!";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 
@@ -1144,96 +1129,97 @@ public class DBOperation {
 	}
 
 	public static int invoiceQuantity(int customerId, Connection conn) {
-	    String sql = "SELECT COUNT(INVOICE_ID) AS MAX FROM CUSTOMER_INVOICE WHERE CUSTOMER_ID=?";
-	    int max = 0;
-	    try {
-	        PreparedStatement statement = conn.prepareStatement(sql);
-	        statement.setInt(1, customerId);
-	        ResultSet result = statement.executeQuery(); //
-	        if(result.next()) {
-	            max = result.getInt("MAX");
-	        }
-	    } catch (SQLException ex) {
-	        ex.printStackTrace();
-	    }
-	    return max;
+		String sql = "SELECT COUNT(INVOICE_ID) AS MAX FROM CUSTOMER_INVOICE WHERE CUSTOMER_ID=?";
+		int max = 0;
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, customerId);
+			ResultSet result = statement.executeQuery(); //
+			if (result.next()) {
+				max = result.getInt("MAX");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return max;
 	}
-
 
 	public static String updateLevel(int customerId, Connection conn) {
-	    int level =  DBOperation.invoiceQuantity(customerId, conn);
-	    String sql = "";
-	    String doanhso = "SELECT SUM(TOTAL) AS total_sum FROM CUSTOMER_INVOICE WHERE YEAR(TRADING_TIME) = YEAR(CURDATE()) AND CUSTOMER_ID = ?";
-	    int doanhso1 = 0;
+		int level = DBOperation.invoiceQuantity(customerId, conn);
+		String sql = "";
+		String doanhso = "SELECT SUM(TOTAL) AS total_sum FROM CUSTOMER_INVOICE WHERE YEAR(TRADING_TIME) = YEAR(CURDATE()) AND CUSTOMER_ID = ?";
+		int doanhso1 = 0;
 
-	    try {
-	        PreparedStatement statement = conn.prepareStatement(doanhso);
-	        statement.setInt(1, customerId);
-	        ResultSet result = statement.executeQuery();
-	        if (result.next()) {
-	            doanhso1 = result.getInt("total_sum");
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+		try {
+			PreparedStatement statement = conn.prepareStatement(doanhso);
+			statement.setInt(1, customerId);
+			ResultSet result = statement.executeQuery();
+			if (result.next()) {
+				doanhso1 = result.getInt("total_sum");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
-	    if(doanhso1 < 1000) {
-	        sql = " UPDATE CUSTOMERS SET LEVEL= 'NEW' WHERE CUSTOMER_ID=?";
-	    } else if(doanhso1 < 3000) {
-	        sql = " UPDATE CUSTOMERS SET LEVEL= 'SILVER' WHERE CUSTOMER_ID=?";
-	    } else if(doanhso1 < 5000) {
-	        sql = " UPDATE CUSTOMERS SET LEVEL= 'GOLD' WHERE CUSTOMER_ID=?";
-	    } else if(doanhso1 < 8000) {
-	        sql = " UPDATE CUSTOMERS SET LEVEL= 'DIAMOND' WHERE CUSTOMER_ID=?";
-	    } else {
-	        sql = " UPDATE CUSTOMERS SET LEVEL= 'VIP' WHERE CUSTOMER_ID=?";
-	    }
+		if (doanhso1 < 1000) {
+			sql = " UPDATE CUSTOMERS SET LEVEL= 'NEW' WHERE CUSTOMER_ID=?";
+		} else if (doanhso1 < 3000) {
+			sql = " UPDATE CUSTOMERS SET LEVEL= 'SILVER' WHERE CUSTOMER_ID=?";
+		} else if (doanhso1 < 5000) {
+			sql = " UPDATE CUSTOMERS SET LEVEL= 'GOLD' WHERE CUSTOMER_ID=?";
+		} else if (doanhso1 < 8000) {
+			sql = " UPDATE CUSTOMERS SET LEVEL= 'DIAMOND' WHERE CUSTOMER_ID=?";
+		} else {
+			sql = " UPDATE CUSTOMERS SET LEVEL= 'VIP' WHERE CUSTOMER_ID=?";
+		}
 
-	    try {
-	        PreparedStatement statement = conn.prepareStatement(sql);
-	        statement.setInt(1, customerId);
-	        statement.executeUpdate(); 
-	        System.out.println("Update level customer successfully!");
-	        return "SUCCESS!";
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return "FAILED!";
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, customerId);
+			statement.executeUpdate();
+			System.out.println("Update level customer successfully!");
+			return "SUCCESS!";
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "FAILED!";
 	}
+
 	public static List<Campaign> queryCampaign(Connection conn) {
-		
+
 		String sql = "SELECT * FROM CAMPAIGN ";
 		List<Campaign> campaigns = new ArrayList<Campaign>();
-		
-		try {
-	        PreparedStatement statement = conn.prepareStatement(sql);
-	        ResultSet result = statement.executeQuery(sql);
-	        while(result.next()) {
-	   		 int campaignId = result.getInt("CAMPAIGN_ID");
-			 String campaignName = result.getString("CAMPAIGN_NAME");
-			 String target_customer = result.getString("TARGET_CUSTOMER_LEVEL");
-			 String campaignCode = result.getString("CAMPAIGN_CODE");
-			 String status = result.getString("STATUS");
-			 String msg_content = result.getString("MSG_CONTENT");
-			 String campaign_timestamp = result.getString("CAMPAIGN_TIMESTAMP");
-	        	
-			 Campaign campaign = new Campaign();
-			 campaign.setCampaignId(campaignId);
-			 campaign.setCampaignName(campaignName);
-			 campaign.setTarget_customer(target_customer);
-			 campaign.setCampaignCode(campaignCode);
-			 campaign.setStatus(status);
-			 campaign.setMsg_content(msg_content);
-			 campaign.setCampaign_timestamp(campaign_timestamp);
-			 
-			 campaigns.add(campaign);
-	        }
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return campaigns;
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet result = statement.executeQuery(sql);
+			while (result.next()) {
+				int campaignId = result.getInt("CAMPAIGN_ID");
+				String campaignName = result.getString("CAMPAIGN_NAME");
+				String target_customer = result.getString("TARGET_CUSTOMER_LEVEL");
+				String campaignCode = result.getString("CAMPAIGN_CODE");
+				String status = result.getString("STATUS");
+				String msg_content = result.getString("MSG_CONTENT");
+				String campaign_timestamp = result.getString("CAMPAIGN_TIMESTAMP");
+
+				Campaign campaign = new Campaign();
+				campaign.setCampaignId(campaignId);
+				campaign.setCampaignName(campaignName);
+				campaign.setTarget_customer(target_customer);
+				campaign.setCampaignCode(campaignCode);
+				campaign.setStatus(status);
+				campaign.setMsg_content(msg_content);
+				campaign.setCampaign_timestamp(campaign_timestamp);
+
+				campaigns.add(campaign);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return campaigns;
 	}
+
 	public static String addCampaign(Campaign campaign, Connection conn) {
 		String sql = "INSERT INTO CAMPAIGN (CAMPAIGN_ID, CAMPAIGN_NAME, TARGET_CUSTOMER_LEVEL, CAMPAIGN_CODE, STATUS, MSG_CONTENT, CAMPAIGN_TIMESTAMP) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -1258,11 +1244,11 @@ public class DBOperation {
 		}
 		return "Failed";
 	}
-	
+
 	public static String updateCampaign(Campaign campaign, Connection conn) {
-		
-		String sql ="UPDATE CAMPAIGN SET CAMPAIGN_NAME = ?, TARGET_CUSTOMER_LEVEL = ?, CAMPAIGN_CODE = ?, STATUS = ?, MSG_CONTENT = ?, CAMPAIGN_TIMESTAMP = ? WHERE CAMPAIGN_ID = ?";
-		
+
+		String sql = "UPDATE CAMPAIGN SET CAMPAIGN_NAME = ?, TARGET_CUSTOMER_LEVEL = ?, CAMPAIGN_CODE = ?, STATUS = ?, MSG_CONTENT = ?, CAMPAIGN_TIMESTAMP = ? WHERE CAMPAIGN_ID = ?";
+
 		try {
 
 			PreparedStatement statement = conn.prepareStatement(sql);
@@ -1280,16 +1266,16 @@ public class DBOperation {
 				return "Successful";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return "Failed";
 	}
-	
+
 	public static String deleteCampaign(int campaignId, Connection conn) {
-		
+
 		String sql = "DELETE FROM CAMPAIGN WHERE CAMPAIGN_ID = ?";
-		
+
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, campaignId);
@@ -1300,30 +1286,29 @@ public class DBOperation {
 				return "Delete successfully";
 			}
 
-		}catch (SQLException ex) {
+		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		return "Failed";
 	}
-	
+
 	public static int getCountCampaign(Connection conn) {
-		
+
 		String sql = "SELECT MAX(CAMPAIGN_ID) AS MAX FROM CAMPAIGN ";
-		int max =0;
+		int max = 0;
 		try {
 			PreparedStatement statement = conn.prepareStatement(sql);
 			ResultSet result = statement.executeQuery(sql);
 
-			if (result.next()){
+			if (result.next()) {
 				max = result.getInt("MAX");
 			}
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Max campaign id = " + max );
+		System.out.println("Max campaign id = " + max);
 		return max;
-		
+
 	}
 }
-
