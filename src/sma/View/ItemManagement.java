@@ -1,4 +1,4 @@
-package sma.ui;
+package sma.View;
 
 import java.awt.EventQueue;
 
@@ -7,11 +7,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import sma.db.DBOperation;
-import sma.object.Category;
-import sma.object.Item;
-import sma.object.Item;
-import sma.object.Measurement;
+import sma.Controller.DBOperation;
+import sma.Modal.Category;
+import sma.Modal.Item;
+import sma.Modal.Measurement;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

@@ -1,7 +1,7 @@
-package sma.object;
+package sma.Modal;
 
 public class Category {
-	
+
 	private String category;
 
 	public String getCategory() {
@@ -11,8 +11,5 @@ public class Category {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	
 
 }
-

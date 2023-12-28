@@ -1,4 +1,4 @@
-package sma.ui;
+package sma.View;
 
 import java.awt.EventQueue;
 
@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import sma.db.DBOperation;
-import sma.object.Customer;
+import sma.Controller.DBOperation;
+import sma.Modal.Customer;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

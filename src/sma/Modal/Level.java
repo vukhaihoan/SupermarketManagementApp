@@ -1,6 +1,6 @@
-package sma.ui;
+package sma.Modal;
 
-public class CustomerLevel {
+public class Level {
 
 	private String level;
 
@@ -11,4 +11,5 @@ public class CustomerLevel {
 	public void setLevel(String level) {
 		this.level = level;
 	}
+
 }

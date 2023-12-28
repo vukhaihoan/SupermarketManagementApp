@@ -1,4 +1,4 @@
-package sma.db;
+package sma.Controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,15 +14,15 @@ import java.util.Map;
 
 import javax.swing.JOptionPane;
 
-import sma.object.Booth;
-import sma.object.Campaign;
-import sma.object.Category;
-import sma.object.Customer;
-import sma.object.Invoice;
-import sma.object.Item;
-import sma.object.Level;
-import sma.object.Measurement;
-import sma.ui.CustomerLevel;
+import sma.Modal.Booth;
+import sma.Modal.Campaign;
+import sma.Modal.Category;
+import sma.Modal.Customer;
+import sma.Modal.Invoice;
+import sma.Modal.Item;
+import sma.Modal.Level;
+import sma.Modal.Measurement;
+import sma.View.CustomerLevel;
 
 public class DBOperation {
 

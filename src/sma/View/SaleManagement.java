@@ -1,4 +1,4 @@
-package sma.ui;
+package sma.View;
 
 import java.awt.EventQueue;
 
@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import sma.db.DBOperation;
+import sma.Controller.DBOperation;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -26,9 +26,9 @@ public class SaleManagement extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-//					SaleManagement frame = new SaleManagement(int i);
-//					frame.setVisible(true);
-//					frame.setLocationRelativeTo(null);
+					// SaleManagement frame = new SaleManagement(int i);
+					// frame.setVisible(true);
+					// frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,7 +38,8 @@ public class SaleManagement extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @param i 
+	 * 
+	 * @param i
 	 */
 	public SaleManagement(int i) {
 		setTitle("Sale Management");
@@ -50,16 +51,16 @@ public class SaleManagement extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 10, 459, 141);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("Cusutomer Management");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				CustomerManagement customerManagement = new CustomerManagement(i);
 				customerManagement.setLocationRelativeTo(null);
 				customerManagement.setVisible(true);
@@ -68,7 +69,7 @@ public class SaleManagement extends JFrame {
 		});
 		btnNewButton.setBounds(10, 27, 213, 40);
 		panel.add(btnNewButton);
-		
+
 		JButton btnInvoiceManagement = new JButton("Invoice Management");
 		btnInvoiceManagement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -80,14 +81,14 @@ public class SaleManagement extends JFrame {
 		});
 		btnInvoiceManagement.setBounds(236, 27, 213, 40);
 		panel.add(btnInvoiceManagement);
-		
+
 		JButton btnLogOut = new JButton("Log out");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LogInDialog logInDialog = new LogInDialog();
 				logInDialog.setLocationRelativeTo(null);
 				logInDialog.setVisible(true);
-				dispose();	
+				dispose();
 			}
 		});
 		btnLogOut.setBounds(360, 107, 89, 23);

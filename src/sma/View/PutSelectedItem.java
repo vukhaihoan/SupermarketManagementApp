@@ -1,4 +1,4 @@
-package sma.ui;
+package sma.View;
 
 import java.awt.EventQueue;
 
@@ -9,11 +9,11 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.log.Log;
 
-import sma.db.DBOperation;
-import sma.object.Booth;
-import sma.object.Customer;
-import sma.object.Invoice;
-import sma.object.Item;
+import sma.Controller.DBOperation;
+import sma.Modal.Booth;
+import sma.Modal.Customer;
+import sma.Modal.Invoice;
+import sma.Modal.Item;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;

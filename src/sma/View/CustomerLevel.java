@@ -1,6 +1,6 @@
-package sma.object;
+package sma.View;
 
-public class Level {
+public class CustomerLevel {
 
 	private String level;
 
@@ -11,6 +11,4 @@ public class Level {
 	public void setLevel(String level) {
 		this.level = level;
 	}
-	
-	
 }

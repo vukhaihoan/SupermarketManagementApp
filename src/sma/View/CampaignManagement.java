@@ -1,4 +1,4 @@
-package sma.ui;
+package sma.View;
 
 import java.awt.EventQueue;
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
-import sma.db.DBOperation;
-import sma.object.Campaign;
+import sma.Controller.DBOperation;
+import sma.Modal.Campaign;
 import sma.business.CampaignTask;
 
 import javax.swing.JLabel;

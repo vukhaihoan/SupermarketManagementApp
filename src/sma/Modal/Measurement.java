@@ -1,4 +1,4 @@
-package sma.object;
+package sma.Modal;
 
 public class Measurement {
 	private String measurement;
@@ -10,7 +10,5 @@ public class Measurement {
 	public void setMeasurement(String measurement) {
 		this.measurement = measurement;
 	}
-	
-	
 
 }
