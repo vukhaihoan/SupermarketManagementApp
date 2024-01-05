@@ -42,7 +42,7 @@ public class SaleManagement extends JFrame {
 	 * @param i
 	 */
 	public SaleManagement(int i) {
-		setTitle("Sale Management");
+		setTitle("Quản lý bán hàng");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 493, 201);
@@ -57,7 +57,7 @@ public class SaleManagement extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JButton btnNewButton = new JButton("Cusutomer Management");
+		JButton btnNewButton = new JButton("Quản lý khách hàng");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -70,7 +70,7 @@ public class SaleManagement extends JFrame {
 		btnNewButton.setBounds(10, 27, 213, 40);
 		panel.add(btnNewButton);
 
-		JButton btnInvoiceManagement = new JButton("Invoice Management");
+		JButton btnInvoiceManagement = new JButton("Quản lý hóa đơn");
 		btnInvoiceManagement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PutSelectedItem putSelectedItem = new PutSelectedItem(i);
@@ -82,7 +82,7 @@ public class SaleManagement extends JFrame {
 		btnInvoiceManagement.setBounds(236, 27, 213, 40);
 		panel.add(btnInvoiceManagement);
 
-		JButton btnLogOut = new JButton("Log out");
+		JButton btnLogOut = new JButton("Đăng xuất");
 		btnLogOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LogInDialog logInDialog = new LogInDialog();

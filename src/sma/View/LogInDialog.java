@@ -59,7 +59,7 @@ public class LogInDialog extends JFrame {
 	 */
 	public LogInDialog() {
 
-		setTitle("Log in Dialog");
+		setTitle("Đăng Nhập");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
@@ -109,7 +109,7 @@ public class LogInDialog extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("LOG IN DIALOG");
+		JLabel lblNewLabel_1 = new JLabel("Đăng Nhập");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(10, 10, 289, 84);
@@ -146,7 +146,7 @@ public class LogInDialog extends JFrame {
 		char[] password = txtPassword.getPassword();
 		String passwordString = new String(password);
 		if (userIdText.isEmpty() || passwordString.isEmpty()) {
-			JOptionPane.showMessageDialog(null, "Please fill empty field!");
+			JOptionPane.showMessageDialog(null, "Vui lòng điền vào trường trống!");
 			txtUserId.requestFocus();
 			return;
 		} else {

@@ -87,7 +87,7 @@ public class ItemManagement extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("ITEM MANAGEMENT");
+		JLabel lblNewLabel = new JLabel("QUẢN LÝ SẢN PHẨM");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 10, 835, 45);
@@ -98,12 +98,12 @@ public class ItemManagement extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("   ITEM INFORMATION");
+		JLabel lblNewLabel_1 = new JLabel("Thông tin sản phẩm");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNewLabel_1.setBounds(0, 0, 164, 26);
 		panel_1.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("Item ID:");
+		JLabel lblNewLabel_2 = new JLabel("ID Sản Phẩm:");
 		lblNewLabel_2.setBounds(10, 36, 86, 26);
 		panel_1.add(lblNewLabel_2);
 
@@ -114,11 +114,11 @@ public class ItemManagement extends JFrame {
 		panel_1.add(txtItemId);
 		txtItemId.setColumns(10);
 
-		JLabel lblNewLabel_2_1 = new JLabel("Measurement:");
+		JLabel lblNewLabel_2_1 = new JLabel("Đơn Vị:");
 		lblNewLabel_2_1.setBounds(10, 88, 86, 26);
 		panel_1.add(lblNewLabel_2_1);
 
-		JLabel lblNewLabel_2_2 = new JLabel("Item Name:");
+		JLabel lblNewLabel_2_2 = new JLabel("Tên Sản Phẩm:");
 		lblNewLabel_2_2.setBounds(316, 36, 86, 26);
 		panel_1.add(lblNewLabel_2_2);
 
@@ -127,7 +127,7 @@ public class ItemManagement extends JFrame {
 		txtItemName.setBounds(414, 40, 127, 22);
 		panel_1.add(txtItemName);
 
-		JLabel lblNewLabel_2_3 = new JLabel("Quantity:");
+		JLabel lblNewLabel_2_3 = new JLabel("Số lượng:");
 		lblNewLabel_2_3.setBounds(316, 88, 86, 26);
 		panel_1.add(lblNewLabel_2_3);
 
@@ -136,11 +136,11 @@ public class ItemManagement extends JFrame {
 		txtQuantity.setBounds(414, 92, 127, 22);
 		panel_1.add(txtQuantity);
 
-		JLabel lblNewLabel_2_4 = new JLabel("Category:");
+		JLabel lblNewLabel_2_4 = new JLabel("Loại:");
 		lblNewLabel_2_4.setBounds(620, 36, 86, 26);
 		panel_1.add(lblNewLabel_2_4);
 
-		JLabel lblNewLabel_2_5 = new JLabel("Unit Price:");
+		JLabel lblNewLabel_2_5 = new JLabel("Đơn Gía:");
 		lblNewLabel_2_5.setBounds(620, 88, 86, 26);
 		panel_1.add(lblNewLabel_2_5);
 
@@ -192,7 +192,7 @@ public class ItemManagement extends JFrame {
 
 			}
 		});
-		String[] columnNames = { "", "Item ID", "Item Name", "Category", "Measurement", "Remaining", "Unit Price" };
+		String[] columnNames = { "", "Id Sản Phẩm", "Tên Sản Phẩm", "Loại", "Đơn vị", "Còn Lại", "Đơn giá" };
 		(model).setColumnIdentifiers(columnNames);
 
 		scrollPane.setViewportView(table);
@@ -205,7 +205,7 @@ public class ItemManagement extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
-		JButton btnAdd = new JButton("Add");
+		JButton btnAdd = new JButton("Thêm");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -230,7 +230,7 @@ public class ItemManagement extends JFrame {
 		btnAdd.setBounds(10, 10, 143, 42);
 		panel_2.add(btnAdd);
 
-		JButton btnSearch = new JButton("Search");
+		JButton btnSearch = new JButton("Tìm kiếm");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -240,7 +240,7 @@ public class ItemManagement extends JFrame {
 		btnSearch.setBounds(238, 10, 143, 42);
 		panel_2.add(btnSearch);
 
-		JButton btnUpdate = new JButton("Update");
+		JButton btnUpdate = new JButton("Cập nhật");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -255,7 +255,7 @@ public class ItemManagement extends JFrame {
 						|| category == null || category.isEmpty() || measurement == null || measurement.isEmpty()
 						|| txtQuantity == null || txtQuantity.getText().isEmpty() || txtUnitPrice == null
 						|| txtUnitPrice.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Please fill in all the required information.");
+					JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin được yêu cầu.");
 
 				} else {
 
@@ -265,7 +265,7 @@ public class ItemManagement extends JFrame {
 					item.setMeasurement(measurement);
 					item.setQuantity(quantity);
 					item.setUnitPrice(unitPrice);
-					JOptionPane.showMessageDialog(null, "Update a item successfully!");
+					JOptionPane.showMessageDialog(null, "Cập nhật thành công.");
 					String result = DBOperation.updateItem(item, conn);
 				}
 
@@ -279,7 +279,7 @@ public class ItemManagement extends JFrame {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				int result = JOptionPane.showOptionDialog(null, "Confirm to delete?", "Confirm Delete",
+				int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn xoá sản phẩm?", "Xác nhận xoá",
 						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
 
 				if (result == JOptionPane.YES_OPTION) {
@@ -329,7 +329,7 @@ public class ItemManagement extends JFrame {
 		btnResetTable.setBounds(469, 10, 143, 42);
 		panel_2.add(btnResetTable);
 
-		JButton btnCancel = new JButton("Log out");
+		JButton btnCancel = new JButton("Huỷ");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (i == 13) {
