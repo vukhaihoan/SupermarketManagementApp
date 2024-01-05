@@ -130,24 +130,24 @@ public class AddItemDialog extends JFrame {
 
 		}
 
-		JLabel lblNewLabel_1 = new JLabel("   ITEM INFORMATION");
+		JLabel lblNewLabel_1 = new JLabel("Thông Tin Sản Phẩm");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNewLabel_1.setBounds(0, 0, 164, 26);
 		panel_1_1.add(lblNewLabel_1);
 
-		JLabel txtItemId2 = new JLabel("Item ID:");
+		JLabel txtItemId2 = new JLabel("ID Sản Phẩm:");
 		txtItemId2.setBounds(10, 36, 86, 26);
 		panel_1_1.add(txtItemId2);
 
-		JLabel lblNewLabel_2_1 = new JLabel("Measurement:");
+		JLabel lblNewLabel_2_1 = new JLabel("Đơn vị:");
 		lblNewLabel_2_1.setBounds(10, 88, 86, 26);
 		panel_1_1.add(lblNewLabel_2_1);
 
-		JLabel lblNewLabel_2_2 = new JLabel("Item Name:");
+		JLabel lblNewLabel_2_2 = new JLabel("Tên Sản Phẩm:");
 		lblNewLabel_2_2.setBounds(316, 36, 86, 26);
 		panel_1_1.add(lblNewLabel_2_2);
 
-		JLabel lblNewLabel_2_3 = new JLabel("Quantity:");
+		JLabel lblNewLabel_2_3 = new JLabel("Số Lượng:");
 		lblNewLabel_2_3.setBounds(316, 88, 86, 26);
 		panel_1_1.add(lblNewLabel_2_3);
 
@@ -155,7 +155,7 @@ public class AddItemDialog extends JFrame {
 		lblNewLabel_2_4.setBounds(620, 36, 86, 26);
 		panel_1_1.add(lblNewLabel_2_4);
 
-		JLabel lblNewLabel_2_5 = new JLabel("Unit Price:");
+		JLabel lblNewLabel_2_5 = new JLabel("Đơn Giá:");
 		lblNewLabel_2_5.setBounds(620, 88, 86, 26);
 		panel_1_1.add(lblNewLabel_2_5);
 
@@ -170,7 +170,7 @@ public class AddItemDialog extends JFrame {
 
 				if (itemName.equals("") || txtQuantity.getText().isEmpty() || txtUnitPrice.getText().isEmpty()) {
 
-					JOptionPane.showMessageDialog(null, "Please fill in all the required information.");
+					JOptionPane.showMessageDialog(null, "Vui lòng điền tất cả các thông tin được yêu cầu∂.");
 					return;
 				} else {
 					int quantity = Integer.parseInt(txtQuantity.getText());
@@ -183,7 +183,7 @@ public class AddItemDialog extends JFrame {
 					item.setQuantity(quantity);
 					item.setUnitPrice(unitPrice);
 					String result = DBOperation.insertItem(item, conn);
-					JOptionPane.showMessageDialog(null, "Add successfully!");
+					JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công.");
 					dispose();
 				}
 			}

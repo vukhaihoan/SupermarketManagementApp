@@ -100,7 +100,7 @@ public class CustomerInvoice extends JFrame {
 		searchData(customer);
 		scrollPane.setViewportView(table);
 
-		JLabel lblNewLabel = new JLabel("Customer Invoice");
+		JLabel lblNewLabel = new JLabel("Hoá Đơn Khách Hàng");
 		lblNewLabel.setBounds(20, 93, 133, 23);
 		contentPane.add(lblNewLabel);
 
@@ -109,11 +109,11 @@ public class CustomerInvoice extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblCustomerInformation = new JLabel("Customer Information");
+		JLabel lblCustomerInformation = new JLabel("Thông tin khách hàng");
 		lblCustomerInformation.setBounds(10, 11, 145, 23);
 		panel.add(lblCustomerInformation);
 
-		JLabel lblNewLabel_1 = new JLabel("Customer ID:");
+		JLabel lblNewLabel_1 = new JLabel("ID Khách Hàng:");
 		lblNewLabel_1.setBounds(20, 45, 78, 14);
 		panel.add(lblNewLabel_1);
 
@@ -131,11 +131,11 @@ public class CustomerInvoice extends JFrame {
 		panel.add(txtCustomerName);
 		txtCustomerName.setText(customer.getCustomerName());
 
-		JLabel lblNewLabel_1_1 = new JLabel("Customer Name:");
+		JLabel lblNewLabel_1_1 = new JLabel("Tên Khách Hàng:");
 		lblNewLabel_1_1.setBounds(326, 45, 100, 14);
 		panel.add(lblNewLabel_1_1);
 
-		JLabel lblInvoiceDetail = new JLabel("Invoice Details");
+		JLabel lblInvoiceDetail = new JLabel("Chi tiết hoá đơn");
 		lblInvoiceDetail.setBounds(20, 281, 133, 23);
 		contentPane.add(lblInvoiceDetail);
 

@@ -70,12 +70,12 @@ public class AddCustomerDialog extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Customer Information");
+		JLabel lblNewLabel = new JLabel("Thông Tin Khách Hàng");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		lblNewLabel.setBounds(10, 11, 171, 38);
 		panel.add(lblNewLabel);
 
-		JLabel lblNewLabel_2 = new JLabel("Customer ID:");
+		JLabel lblNewLabel_2 = new JLabel("ID Khách Hàng:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2.setBounds(20, 60, 89, 19);
 		panel.add(lblNewLabel_2);
@@ -87,7 +87,7 @@ public class AddCustomerDialog extends JFrame {
 		panel.add(txtCustomerId);
 		txtCustomerId.setText(String.valueOf(DBOperation.getMaxCustomerId(conn) + 1));
 
-		JLabel lblNewLabel_2_2 = new JLabel("Customer Name:");
+		JLabel lblNewLabel_2_2 = new JLabel("Tên Khách Hàng:");
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2_2.setBounds(354, 60, 112, 19);
 		panel.add(lblNewLabel_2_2);
@@ -97,7 +97,7 @@ public class AddCustomerDialog extends JFrame {
 		txtCustomerName.setBounds(490, 60, 157, 20);
 		panel.add(txtCustomerName);
 
-		JLabel lblNewLabel_2_1 = new JLabel("Address:");
+		JLabel lblNewLabel_2_1 = new JLabel("Địa Chỉ:");
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2_1.setBounds(20, 121, 57, 19);
 		panel.add(lblNewLabel_2_1);
@@ -107,7 +107,7 @@ public class AddCustomerDialog extends JFrame {
 		txtAddress.setBounds(156, 121, 162, 20);
 		panel.add(txtAddress);
 
-		JLabel lblNewLabel_2_3 = new JLabel("Phone Numbers:");
+		JLabel lblNewLabel_2_3 = new JLabel("Số Điện Thoại:");
 		lblNewLabel_2_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2_3.setBounds(354, 121, 109, 19);
 		panel.add(lblNewLabel_2_3);
@@ -135,13 +135,13 @@ public class AddCustomerDialog extends JFrame {
 
 				if (txtCustomerName.getText().isEmpty() || txtPhonenumbers.getText().isEmpty()
 						|| txtAddress.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Please fill in all the required information.");
+					JOptionPane.showMessageDialog(null, "Vui lòng điền tất cả các thông tin được yêu cầu.");
 					return;
 				} else if (DBOperation.existsPhone(phoneNumbers, conn)) {
 
 					int result = JOptionPane.showOptionDialog(null,
-							"Your phone number has previously existed, would you like to reactivate your old account(Yes) or sign up(No)?",
-							"Reactive account dialog", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,
+							"Số điện thoại của bạn đã tồn tại trước đó, bạn muốn kích hoạt lại tài khoản cũ của mình(Có) hay đăng ký(Không)?",
+							"Kích hoạt lại tài khoản", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null,
 							null, null);
 					if (result == JOptionPane.YES_OPTION) {
 						Customer customer = DBOperation.queryCustomerByPhone(phoneNumbers, conn);
@@ -154,7 +154,7 @@ public class AddCustomerDialog extends JFrame {
 						customer.setAddress(address);
 
 						DBOperation.insertCustomer(customer, conn);
-						JOptionPane.showMessageDialog(null, "Insert new customer successfully!");
+						JOptionPane.showMessageDialog(null, "Chèn khách hàng mới thành công!");
 					}
 				} else {
 					Customer customer = new Customer();
@@ -164,7 +164,7 @@ public class AddCustomerDialog extends JFrame {
 					customer.setAddress(address);
 
 					String result = DBOperation.insertCustomer(customer, conn);
-					JOptionPane.showMessageDialog(null, "Insert new customer successfully!");
+					JOptionPane.showMessageDialog(null, "Chèn khách hàng mới thành công!");
 				}
 
 				dispose();

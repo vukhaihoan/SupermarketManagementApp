@@ -20,6 +20,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 import sma.Controller.DBOperation;
 import sma.Modal.Campaign;
+import sma.Modal.CustomerLevel;
 
 import javax.swing.JTextField;
 import javax.swing.SpinnerDateModel;

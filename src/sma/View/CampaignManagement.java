@@ -24,6 +24,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 import sma.Controller.DBOperation;
 import sma.Modal.Campaign;
+import sma.Modal.CustomerLevel;
 import sma.business.CampaignTask;
 
 import javax.swing.JLabel;

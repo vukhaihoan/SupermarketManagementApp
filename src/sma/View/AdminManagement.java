@@ -57,7 +57,7 @@ public class AdminManagement extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JButton btnNewButton = new JButton("Cusutomer Management");
+		JButton btnNewButton = new JButton("Quản lý khách hàng");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -70,7 +70,7 @@ public class AdminManagement extends JFrame {
 		btnNewButton.setBounds(10, 27, 213, 40);
 		panel.add(btnNewButton);
 
-		JButton btnInvoiceManagement = new JButton("Invoice Management");
+		JButton btnInvoiceManagement = new JButton("Quản lý hóa đơn");
 		btnInvoiceManagement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PutSelectedItem putSelectedItem = new PutSelectedItem(i);
@@ -82,7 +82,7 @@ public class AdminManagement extends JFrame {
 		btnInvoiceManagement.setBounds(233, 27, 213, 40);
 		panel.add(btnInvoiceManagement);
 
-		JButton btnInvoiceManagement_1 = new JButton("Item Management");
+		JButton btnInvoiceManagement_1 = new JButton("Quản lý mặt hàng");
 		btnInvoiceManagement_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

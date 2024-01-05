@@ -1,4 +1,4 @@
-package sma.View;
+package sma.Modal;
 
 public class CustomerLevel {
 

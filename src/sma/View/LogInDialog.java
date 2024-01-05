@@ -75,12 +75,12 @@ public class LogInDialog extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("User ID:");
+		JLabel lblNewLabel = new JLabel("Tài Khoản :");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel.setBounds(10, 10, 87, 20);
 		panel.add(lblNewLabel);
 
-		JLabel lblPassword = new JLabel("Password:");
+		JLabel lblPassword = new JLabel("Mật Khẩu:");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblPassword.setBounds(10, 47, 87, 24);
 		panel.add(lblPassword);
@@ -121,7 +121,7 @@ public class LogInDialog extends JFrame {
 		lblNewLabel_2.setBounds(329, 10, 260, 204);
 		contentPane.add(lblNewLabel_2);
 
-		JButton btnCancel = new JButton("Cancel");
+		JButton btnCancel = new JButton("Huỷ");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -130,7 +130,7 @@ public class LogInDialog extends JFrame {
 		btnCancel.setBounds(489, 235, 100, 28);
 		contentPane.add(btnCancel);
 
-		JButton btnLogIn = new JButton("Log in");
+		JButton btnLogIn = new JButton("Đăng Nhập ");
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				logIn();

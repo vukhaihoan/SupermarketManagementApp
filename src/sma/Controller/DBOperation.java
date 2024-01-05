@@ -18,11 +18,11 @@ import sma.Modal.Booth;
 import sma.Modal.Campaign;
 import sma.Modal.Category;
 import sma.Modal.Customer;
+import sma.Modal.CustomerLevel;
 import sma.Modal.Invoice;
 import sma.Modal.Item;
 import sma.Modal.Level;
 import sma.Modal.Measurement;
-import sma.View.CustomerLevel;
 
 public class DBOperation {
 

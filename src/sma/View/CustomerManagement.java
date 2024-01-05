@@ -79,7 +79,7 @@ public class CustomerManagement extends JFrame {
 	 */
 	public CustomerManagement(int i) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle("CUSTOMER MANAGEMENT");
+		setTitle("Quản Lý Khách Hàng");
 		setBounds(100, 100, 1129, 627);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -94,7 +94,7 @@ public class CustomerManagement extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("CUSTOMER MANAGEMENT");
+		JLabel lblNewLabel = new JLabel("Quản Lý Khách Hàng");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
 		lblNewLabel.setBounds(10, 10, 1075, 68);
@@ -105,12 +105,12 @@ public class CustomerManagement extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("Customer Information");
+		JLabel lblNewLabel_1 = new JLabel("Thông Tin Khách Hàng");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setBounds(0, 0, 243, 32);
 		panel_1.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("Customer ID:");
+		JLabel lblNewLabel_2 = new JLabel("ID Khách Hàng:");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2.setBounds(10, 42, 126, 32);
 		panel_1.add(lblNewLabel_2);
@@ -121,7 +121,7 @@ public class CustomerManagement extends JFrame {
 		panel_1.add(txtCustomerId);
 		txtCustomerId.setColumns(10);
 
-		JLabel lblNewLabel_2_1 = new JLabel("Address:");
+		JLabel lblNewLabel_2_1 = new JLabel("Địa Chỉ:");
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2_1.setBounds(10, 103, 126, 32);
 		panel_1.add(lblNewLabel_2_1);
@@ -131,7 +131,7 @@ public class CustomerManagement extends JFrame {
 		txtAddress.setBounds(146, 103, 209, 38);
 		panel_1.add(txtAddress);
 
-		JLabel lblNewLabel_2_2 = new JLabel("Customer Name:");
+		JLabel lblNewLabel_2_2 = new JLabel("Tên Khách Hàng:");
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2_2.setBounds(531, 42, 126, 32);
 		panel_1.add(lblNewLabel_2_2);
@@ -141,7 +141,7 @@ public class CustomerManagement extends JFrame {
 		txtCustomerName.setBounds(667, 42, 209, 38);
 		panel_1.add(txtCustomerName);
 
-		JLabel lblNewLabel_2_3 = new JLabel("Phone Numbers:");
+		JLabel lblNewLabel_2_3 = new JLabel("Số Điện Thoại:");
 		lblNewLabel_2_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2_3.setBounds(531, 103, 126, 32);
 		panel_1.add(lblNewLabel_2_3);
@@ -177,7 +177,7 @@ public class CustomerManagement extends JFrame {
 		panel_2.setBounds(10, 542, 1095, 39);
 		contentPane.add(panel_2);
 
-		JButton btnNewButton = new JButton("Add Customer ");
+		JButton btnNewButton = new JButton("Thêm Khách Hàng");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddCustomerDialog addCustomerDialog = new AddCustomerDialog();

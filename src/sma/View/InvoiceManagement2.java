@@ -81,7 +81,7 @@ public class InvoiceManagement2 extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Sales Invoice");
+		JLabel lblNewLabel = new JLabel("Hoá đơn bán hàng");
 		lblNewLabel.setBackground(new Color(192, 192, 192));
 		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -89,7 +89,7 @@ public class InvoiceManagement2 extends JFrame {
 		lblNewLabel.setBounds(10, 11, 475, 85);
 		panel.add(lblNewLabel);
 
-		JLabel lblNewLabel_3_1 = new JLabel("Date:");
+		JLabel lblNewLabel_3_1 = new JLabel("Ngày:");
 		lblNewLabel_3_1.setBounds(495, 45, 59, 14);
 		panel.add(lblNewLabel_3_1);
 
@@ -107,7 +107,7 @@ public class InvoiceManagement2 extends JFrame {
 		txtInvoiceId.setColumns(10);
 		txtInvoiceId.setText(String.valueOf(invoiceId));
 
-		JLabel lblNewLabel_3 = new JLabel("Invoice ID:");
+		JLabel lblNewLabel_3 = new JLabel("ID Hoá đơn:");
 		lblNewLabel_3.setBounds(495, 14, 59, 14);
 		panel.add(lblNewLabel_3);
 

@@ -86,7 +86,7 @@ public class InvoiceManagement extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Sales Invoice");
+		JLabel lblNewLabel = new JLabel("Quản lý hóa đơn");
 		lblNewLabel.setBackground(new Color(192, 192, 192));
 		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -112,7 +112,7 @@ public class InvoiceManagement extends JFrame {
 		txtInvoiceId.setColumns(10);
 		txtInvoiceId.setText(String.valueOf(invoiceId));
 
-		JLabel lblNewLabel_3 = new JLabel("Invoice ID:");
+		JLabel lblNewLabel_3 = new JLabel("ID Hoá Đơn:");
 		lblNewLabel_3.setBounds(495, 14, 59, 14);
 		panel.add(lblNewLabel_3);
 
@@ -139,11 +139,11 @@ public class InvoiceManagement extends JFrame {
 		txtCustomerId.setColumns(10);
 		txtCustomerId.setText(String.valueOf(customerId));
 
-		JLabel lblNewLabel_2_1 = new JLabel("Customer name:");
+		JLabel lblNewLabel_2_1 = new JLabel("Tên Khách Hàng:");
 		lblNewLabel_2_1.setBounds(10, 62, 97, 20);
 		panel_1.add(lblNewLabel_2_1);
 
-		JLabel lblNewLabel_2_2 = new JLabel("Address:");
+		JLabel lblNewLabel_2_2 = new JLabel("Địa Chỉ:");
 		lblNewLabel_2_2.setBounds(337, 31, 87, 20);
 		panel_1.add(lblNewLabel_2_2);
 
@@ -155,11 +155,11 @@ public class InvoiceManagement extends JFrame {
 		panel_1.add(txtCustomerName);
 		txtCustomerName.setText(customer.getCustomerName());
 
-		JLabel lblNewLabel_2_3 = new JLabel("Phone numbers:");
+		JLabel lblNewLabel_2_3 = new JLabel("Số Điện Thoại:");
 		lblNewLabel_2_3.setBounds(337, 62, 97, 20);
 		panel_1.add(lblNewLabel_2_3);
 
-		JLabel lblNewLabel_2 = new JLabel("Customer ID:");
+		JLabel lblNewLabel_2 = new JLabel("ID Khách hàng:");
 		lblNewLabel_2.setBounds(10, 31, 87, 20);
 		panel_1.add(lblNewLabel_2);
 
@@ -171,7 +171,7 @@ public class InvoiceManagement extends JFrame {
 		panel_1.add(txtPhonenumbers);
 		txtPhonenumbers.setText(customer.getPhoneNumbers());
 
-		JLabel lblNewLabel_1 = new JLabel("Customer Information");
+		JLabel lblNewLabel_1 = new JLabel("Thông tin Khách Hàng");
 		lblNewLabel_1.setBounds(10, 0, 162, 20);
 		panel_1.add(lblNewLabel_1);
 
@@ -188,7 +188,7 @@ public class InvoiceManagement extends JFrame {
 		panel_1_1.add(txtBoothId);
 		txtBoothId.setText(String.valueOf(boothId));
 
-		JLabel lblNewLabel_2_4 = new JLabel("Booth ID:");
+		JLabel lblNewLabel_2_4 = new JLabel("ID Gian Hàng:");
 		lblNewLabel_2_4.setBounds(10, 31, 87, 20);
 		panel_1_1.add(lblNewLabel_2_4);
 
@@ -201,11 +201,11 @@ public class InvoiceManagement extends JFrame {
 		panel_1_1.add(txtBoothName);
 		txtBoothName.setText(booth.getBoothName());
 
-		JLabel lblNewLabel_2_2_1 = new JLabel("Booth name:");
+		JLabel lblNewLabel_2_2_1 = new JLabel("Tên Gian Hàng:");
 		lblNewLabel_2_2_1.setBounds(337, 31, 87, 20);
 		panel_1_1.add(lblNewLabel_2_2_1);
 
-		JLabel lblNewLabel_1_1 = new JLabel("Booth Information");
+		JLabel lblNewLabel_1_1 = new JLabel("Thông tin Gian Hàng");
 		lblNewLabel_1_1.setBounds(10, 0, 162, 20);
 		panel_1_1.add(lblNewLabel_1_1);
 
@@ -236,12 +236,12 @@ public class InvoiceManagement extends JFrame {
 		txtTotal.setText(String.valueOf(total));
 		scrollPane.setViewportView(table);
 
-		JLabel lblNewLabel_4 = new JLabel("Total");
+		JLabel lblNewLabel_4 = new JLabel("Tổng cộng");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_4.setBounds(568, 513, 47, 20);
 		contentPane.add(lblNewLabel_4);
 
-		JLabel lblNewLabel_5 = new JLabel("Selected Item List");
+		JLabel lblNewLabel_5 = new JLabel("Danh Sách mục đã chọn");
 		lblNewLabel_5.setBounds(20, 333, 108, 14);
 		contentPane.add(lblNewLabel_5);
 	}
