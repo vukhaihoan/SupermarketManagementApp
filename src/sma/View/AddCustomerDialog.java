@@ -124,7 +124,7 @@ public class AddCustomerDialog extends JFrame {
 		txtPhonenumbers.setText("");
 		txtCustomerName.requestFocus();
 
-		JButton btnApply = new JButton("Apply");
+		JButton btnApply = new JButton("Áp Dụng");
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

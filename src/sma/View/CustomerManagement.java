@@ -167,7 +167,7 @@ public class CustomerManagement extends JFrame {
 			}
 		});
 
-		String[] columnNames = { "", "Customer ID", "Customer Name", "Phone Numbers", "Address", "Level" };
+		String[] columnNames = { "", "Id Khách hàng", "Tên Khách Hàng", "Số Điện Thoại", "Địa Chỉ", "Level" };
 		model.setColumnIdentifiers(columnNames);
 
 		scrollPane.setViewportView(table);
@@ -203,10 +203,10 @@ public class CustomerManagement extends JFrame {
 
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		JButton btnDelete = new JButton("Delete");
+		JButton btnDelete = new JButton("Xoá");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int result = JOptionPane.showOptionDialog(null, "Confirm to delete?", "Confirm Delete",
+				int result = JOptionPane.showOptionDialog(null, "Bạn có chắc chắn muốn xoá?", "Xác nhận xoá",
 						JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
 				if (result == JOptionPane.YES_OPTION) {
 					Vector<Integer> v = new Vector<>();
@@ -232,7 +232,7 @@ public class CustomerManagement extends JFrame {
 		panel_2.add(btnDelete);
 		panel_2.add(btnNewButton);
 
-		JButton btnUpdate = new JButton("Update");
+		JButton btnUpdate = new JButton("Cập Nhật");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -250,9 +250,9 @@ public class CustomerManagement extends JFrame {
 				DBOperation.updateCustomer(customer, conn);
 
 				if (customerId == 0 || customerName == null || phoneNumbers == null || address == null) {
-					JOptionPane.showMessageDialog(null, "Please fill in all the required information.");
+					JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin.");
 				} else {
-					JOptionPane.showMessageDialog(null, "Update a customer successfully!");
+					JOptionPane.showMessageDialog(null, "Cập nhật khách hàng thành công!");
 				}
 
 				searchData();
@@ -261,7 +261,7 @@ public class CustomerManagement extends JFrame {
 		});
 		panel_2.add(btnUpdate);
 
-		JButton btnSearch = new JButton("Search");
+		JButton btnSearch = new JButton("Tìm Kiếm");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -270,7 +270,7 @@ public class CustomerManagement extends JFrame {
 		});
 		panel_2.add(btnSearch);
 
-		JButton btnResetTable = new JButton("Reset Table");
+		JButton btnResetTable = new JButton("Đặt Lại Bảng");
 		btnResetTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -283,7 +283,7 @@ public class CustomerManagement extends JFrame {
 		});
 		panel_2.add(btnResetTable);
 
-		JButton btnItemList = new JButton("Invoice");
+		JButton btnItemList = new JButton("Hoá Đơn");
 		btnItemList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -295,12 +295,12 @@ public class CustomerManagement extends JFrame {
 					CustomerInvoice customerInvoice = new CustomerInvoice(customer);
 					customerInvoice.setVisible(true);
 				} else {
-					JOptionPane.showMessageDialog(null, "Please choose a customer!");
+					JOptionPane.showMessageDialog(null, "Vui Lòng chọn khách hàng!");
 				}
 			}
 		});
 
-		JButton btnAddInvoice = new JButton("Add Invoice");
+		JButton btnAddInvoice = new JButton("Thêm Hoá Đơn");
 		btnAddInvoice.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -342,7 +342,7 @@ public class CustomerManagement extends JFrame {
 		panel_2.add(btnAddInvoice);
 		panel_2.add(btnItemList);
 
-		JButton btnCancel = new JButton("Log out");
+		JButton btnCancel = new JButton("Hủy");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (i == 12 || i == 15) {
