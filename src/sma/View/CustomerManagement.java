@@ -270,7 +270,7 @@ public class CustomerManagement extends JFrame {
 		});
 		panel_2.add(btnSearch);
 
-		JButton btnResetTable = new JButton("Đặt Lại Bảng");
+		JButton btnResetTable = new JButton("Đặt Lại");
 		btnResetTable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

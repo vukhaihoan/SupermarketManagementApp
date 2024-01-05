@@ -123,7 +123,7 @@ public class PutSelectedItem extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("  Customer Information");
+		JLabel lblNewLabel = new JLabel("  Thông tin khách hàng");
 		lblNewLabel.setBounds(10, 11, 133, 20);
 		contentPane.add(lblNewLabel);
 
@@ -132,7 +132,7 @@ public class PutSelectedItem extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 
-		JLabel lblNewLabel_1 = new JLabel("Customer ID:");
+		JLabel lblNewLabel_1 = new JLabel("Khách hàng ID:");
 		lblNewLabel_1.setBounds(10, 36, 78, 14);
 		panel.add(lblNewLabel_1);
 
@@ -144,7 +144,7 @@ public class PutSelectedItem extends JFrame {
 		panel.add(txtCustomerId);
 		txtCustomerId.setText(null);
 
-		JLabel lblNewLabel_1_1 = new JLabel("Customer Name:");
+		JLabel lblNewLabel_1_1 = new JLabel("Tên khách hàng:");
 		lblNewLabel_1_1.setBounds(282, 33, 100, 14);
 		panel.add(lblNewLabel_1_1);
 
@@ -156,7 +156,7 @@ public class PutSelectedItem extends JFrame {
 		panel.add(txtCustomerName);
 		txtCustomerName.setText(null);
 
-		JLabel lblNewLabel_4 = new JLabel("Phone numbers:");
+		JLabel lblNewLabel_4 = new JLabel("Số điện thoại khách hàng:");
 		lblNewLabel_4.setBounds(10, 72, 105, 20);
 		panel.add(lblNewLabel_4);
 
@@ -254,7 +254,7 @@ public class PutSelectedItem extends JFrame {
 				}
 			}
 		});
-		String[] columnNames = { "Item ID", "Item Name", "Category", "Measurement", "Remaining", "Unit Price" };
+		String[] columnNames = { "ID mặt hàng", "Tên mặt hàng", "Danh mục", "Số đo", "Còn lại", "Đơn vị giá" };
 		(model).setColumnIdentifiers(columnNames);
 
 		scrollPane.setViewportView(table);
@@ -265,17 +265,17 @@ public class PutSelectedItem extends JFrame {
 
 		table2 = new JTable();
 
-		String[] columnNames1 = { "", "Item ID", "Item Name", "Quantity", "Unit Price", "Price" };
+		String[] columnNames1 = { "", "ID mặt hàng", "Tên mặt hàng", "Số lượng", "Đơn giá", "Giá" };
 		(model2).setColumnIdentifiers(columnNames1);
 
 		scrollPane_1.setViewportView(table2);
 		table.getColumnModel().getColumn(0).setMaxWidth(30);
-		JLabel lblNewLabel_2 = new JLabel("Items");
+		JLabel lblNewLabel_2 = new JLabel("Mặt hàng");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2.setBounds(10, 11, 157, 14);
 		panel_1.add(lblNewLabel_2);
 
-		JLabel lblNewLabel_2_1 = new JLabel("Selected Items");
+		JLabel lblNewLabel_2_1 = new JLabel("Chọn mặt hàng");
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblNewLabel_2_1.setBounds(482, 13, 147, 14);
 		panel_1.add(lblNewLabel_2_1);
@@ -301,7 +301,7 @@ public class PutSelectedItem extends JFrame {
 			}
 		}
 
-		JButton btnNewButton_1 = new JButton("Add");
+		JButton btnNewButton_1 = new JButton("Thêm");
 		btnNewButton_1.setBounds(10, 11, 116, 26);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -309,7 +309,7 @@ public class PutSelectedItem extends JFrame {
 			}
 		});
 
-		JButton btnNewButton_1_2 = new JButton("Delete");
+		JButton btnNewButton_1_2 = new JButton("Xóa");
 		btnNewButton_1_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -323,7 +323,7 @@ public class PutSelectedItem extends JFrame {
 		});
 		btnNewButton_1_2.setBounds(161, 11, 116, 26);
 
-		JLabel lblNewLabel_3 = new JLabel("Total:");
+		JLabel lblNewLabel_3 = new JLabel("Tổng:");
 		lblNewLabel_3.setBounds(10, 62, 48, 26);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
@@ -337,7 +337,7 @@ public class PutSelectedItem extends JFrame {
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
-		JLabel lblNewLabel_1_2 = new JLabel("Item ID:");
+		JLabel lblNewLabel_1_2 = new JLabel("ID mặt hàng:");
 		lblNewLabel_1_2.setBounds(10, 15, 78, 14);
 		panel_2.add(lblNewLabel_1_2);
 
@@ -370,7 +370,7 @@ public class PutSelectedItem extends JFrame {
 		btnResetTable.setBounds(394, 12, 89, 23);
 		panel_2.add(btnResetTable);
 
-		JLabel lblNewLabel_1_2_3 = new JLabel("Quantity:");
+		JLabel lblNewLabel_1_2_3 = new JLabel("Số lượng:");
 		lblNewLabel_1_2_3.setBounds(10, 44, 78, 14);
 		panel_2.add(lblNewLabel_1_2_3);
 
@@ -385,7 +385,7 @@ public class PutSelectedItem extends JFrame {
 		txtQuantity.setBounds(106, 44, 100, 20);
 		panel_2.add(txtQuantity);
 
-		JCheckBox checkBoxMember = new JCheckBox("non-member");
+		JCheckBox checkBoxMember = new JCheckBox("Không phải thành viên");
 		checkBoxMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -404,11 +404,11 @@ public class PutSelectedItem extends JFrame {
 		contentPane.add(panel_3);
 		panel_3.setLayout(null);
 
-		JLabel lblInvoiceInformation = new JLabel("  Invoice Information");
+		JLabel lblInvoiceInformation = new JLabel("  Thông tin hóa đơn");
 		lblInvoiceInformation.setBounds(0, 0, 133, 20);
 		panel_3.add(lblInvoiceInformation);
 
-		JLabel lblNewLabel_1_2_2 = new JLabel("Booth ID:");
+		JLabel lblNewLabel_1_2_2 = new JLabel("Id gian hàng:");
 		lblNewLabel_1_2_2.setBounds(20, 75, 78, 14);
 		panel_3.add(lblNewLabel_1_2_2);
 
@@ -422,7 +422,7 @@ public class PutSelectedItem extends JFrame {
 		int m = DBOperation.getMaxInvoiceId(conn) + 1;
 		txtInvoiceId.setText(String.valueOf(m));
 
-		JLabel lblNewLabel_1_2_1 = new JLabel("Invoice ID:");
+		JLabel lblNewLabel_1_2_1 = new JLabel("ID hóa đơn:");
 		lblNewLabel_1_2_1.setBounds(20, 33, 78, 14);
 		panel_3.add(lblNewLabel_1_2_1);
 
@@ -438,12 +438,12 @@ public class PutSelectedItem extends JFrame {
 		String currentTime = formatter.format(date);
 		txtTradingTime.setText(currentTime);
 
-		JLabel lblNewLabel_1_2_1_1 = new JLabel("Trading time:");
+		JLabel lblNewLabel_1_2_1_1 = new JLabel("Thời gian giao dịch:");
 		lblNewLabel_1_2_1_1.setBounds(20, 115, 78, 14);
 		panel_3.add(lblNewLabel_1_2_1_1);
 		cbBoothId.setBounds(108, 71, 125, 20);
 		panel_3.add(cbBoothId);
-		JButton btnPrint = new JButton("Print");
+		JButton btnPrint = new JButton("In");
 		btnPrint.setBounds(283, 62, 95, 26);
 		btnPrint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -461,7 +461,7 @@ public class PutSelectedItem extends JFrame {
 					float total = number.floatValue();
 					if (!checkBoxMember.isSelected()) {
 						if (txtPhonenumbers.getText().isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Please fill customer information or tick checkbox!");
+							JOptionPane.showMessageDialog(null, "Vui lòng điền thông tin khách hàng hoặc đánh dấu vào ô trống!");
 							return;
 						}
 					} else {
@@ -550,7 +550,7 @@ public class PutSelectedItem extends JFrame {
 				formatter.format(total);
 				if (!checkBoxMember.isSelected()) {
 					if (txtPhonenumbers.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Please fill customer information or tick checkbox!");
+						JOptionPane.showMessageDialog(null, "Vui lòng điền thông tin khách hàng hoặc đánh dấu vào ô trống!");
 						return;
 					}
 				} else {
@@ -671,7 +671,7 @@ public class PutSelectedItem extends JFrame {
 
 	public void addItem() {
 		if (existedItem(txtItemId.getText())) {
-			JOptionPane.showMessageDialog(null, "Existed item in cart!");
+			JOptionPane.showMessageDialog(null, "Mặt hàng đã tồn tại trong giỏ hàng!");
 			return;
 		} else {
 			int row = table.getSelectedRow();
@@ -682,7 +682,7 @@ public class PutSelectedItem extends JFrame {
 
 			} else {
 				if (!txtQuantity.getText().matches("\\d+")) {
-					JOptionPane.showMessageDialog(null, "Please fill correct datatypes in Quantity!");
+					JOptionPane.showMessageDialog(null, "Vui lòng điền đúng kiểu dữ liệu vào Số lượng!");
 					txtQuantity.setText(null);
 					txtQuantity.requestFocus();
 					return;
