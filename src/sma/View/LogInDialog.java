@@ -31,7 +31,7 @@ import java.awt.event.ActionEvent;
 public class LogInDialog extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtUserId;
+	private JTextField txtUserName;
 	private JPasswordField txtPassword;
 	private static int userId;
 	static Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
@@ -85,15 +85,15 @@ public class LogInDialog extends JFrame {
 		lblPassword.setBounds(10, 47, 87, 24);
 		panel.add(lblPassword);
 
-		txtUserId = new JTextField();
-		txtUserId.addActionListener(new ActionListener() {
+		txtUserName = new JTextField();
+		txtUserName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtPassword.requestFocus();
 			}
 		});
-		txtUserId.setBounds(99, 10, 137, 20);
-		panel.add(txtUserId);
-		txtUserId.setColumns(10);
+		txtUserName.setBounds(99, 10, 137, 20);
+		panel.add(txtUserName);
+		txtUserName.setColumns(10);
 
 		txtPassword = new JPasswordField();
 		txtPassword.addActionListener(new ActionListener() {
@@ -117,7 +117,7 @@ public class LogInDialog extends JFrame {
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setIcon(new ImageIcon(LogInDialog.class.getResource("/sma/ui/LogIn.jpg")));
+		lblNewLabel_2.setIcon(new ImageIcon(LogInDialog.class.getResource("/sma/assets/LogIn.jpg")));
 		lblNewLabel_2.setBounds(329, 10, 260, 204);
 		contentPane.add(lblNewLabel_2);
 
@@ -130,7 +130,7 @@ public class LogInDialog extends JFrame {
 		btnCancel.setBounds(489, 235, 100, 28);
 		contentPane.add(btnCancel);
 
-		JButton btnLogIn = new JButton("Đăng Nhập ");
+		JButton btnLogIn = new JButton("Đăng Nhập");
 		btnLogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				logIn();
@@ -142,24 +142,26 @@ public class LogInDialog extends JFrame {
 	}
 
 	public void logIn() {
-		String userIdText = txtUserId.getText();
+		String userName = txtUserName.getText();
 		char[] password = txtPassword.getPassword();
 		String passwordString = new String(password);
-		if (userIdText.isEmpty() || passwordString.isEmpty()) {
+		if (userName.isEmpty() || passwordString.isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Vui lòng điền vào trường trống!");
-			txtUserId.requestFocus();
+			txtUserName.requestFocus();
 			return;
 		} else {
-			userId = Integer.parseInt(userIdText);
+
 			Connection conn = DBOperation.createConnection("jdbc:mysql://localhost:3306/my_database", "root", "");
-			String sql = "SELECT * FROM user WHERE USER_ID = ? AND PASSWORD = ?";
+			String sql = "SELECT * FROM user WHERE USER_NAME = ? AND PASSWORD = ?";
 			PreparedStatement statement;
 			try {
 				statement = conn.prepareStatement(sql);
-				statement.setInt(1, userId);
+				statement.setString(1, userName);
 				statement.setString(2, passwordString);
 				ResultSet result = statement.executeQuery();
+
 				if (result.next()) {
+					userId = result.getInt("USER_ID");
 					String role = result.getString("ROLE");
 					int boothId = result.getInt("BOOTH_ID");
 					userBoothIds.put(userId, boothId);
@@ -185,9 +187,9 @@ public class LogInDialog extends JFrame {
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Invalid user_id or password.");
-					txtUserId.setText("");
+					txtUserName.setText("");
 					txtPassword.setText("");
-					txtUserId.requestFocus();
+					txtUserName.requestFocus();
 				}
 				conn.close();
 			} catch (SQLException e1) {
