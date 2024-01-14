@@ -73,7 +73,7 @@ public class UserManagement extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        JLabel lblUsername = new JLabel("Username:");
+        JLabel lblUsername = new JLabel("Tài Khoản:");
         lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 14));
         lblUsername.setBounds(30, 30, 80, 20);
         contentPane.add(lblUsername);
@@ -83,7 +83,7 @@ public class UserManagement extends JFrame {
         contentPane.add(textFieldUsername);
         textFieldUsername.setColumns(10);
 
-        JLabel lblPassword = new JLabel("Password:");
+        JLabel lblPassword = new JLabel("Mật Khẩu:");
         lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
         lblPassword.setBounds(30, 70, 80, 20);
         contentPane.add(lblPassword);
@@ -109,13 +109,18 @@ public class UserManagement extends JFrame {
         tableUsers = new JTable();
         scrollPane.setViewportView(tableUsers);
 
-        JButton btnAddUser = new JButton("Add User");
+        JButton btnAddUser = new JButton("Thêm người dùng");
         btnAddUser.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // add user
                 String username = textFieldUsername.getText();
                 String password = textFieldPassword.getText();
                 String role = "SALE_PERSON";
+
+                if (username.equals("") || password.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin!");
+                    return;
+                }
                 try {
                     // kiểm tra xem username đã tồn tại chưa
                     String sqlCheck = "SELECT * FROM user WHERE USER_NAME = ?";
@@ -145,7 +150,7 @@ public class UserManagement extends JFrame {
         btnAddUser.setBounds(30, 570, 100, 30);
         contentPane.add(btnAddUser);
 
-        JButton btnDeleteUser = new JButton("Delete User");
+        JButton btnDeleteUser = new JButton("Xóa người dùng");
         btnDeleteUser.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // delete user
@@ -192,7 +197,7 @@ public class UserManagement extends JFrame {
 
         // add change password button , change password dialog
 
-        JButton btnChangePassword = new JButton("Change Password");
+        JButton btnChangePassword = new JButton("Đổi mật khẩu");
 
         btnChangePassword.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -213,7 +218,7 @@ public class UserManagement extends JFrame {
         btnChangePassword.setBounds(250, 570, 150, 30);
         contentPane.add(btnChangePassword);
 
-        JButton btnBack = new JButton("Back");
+        JButton btnBack = new JButton("Trở về");
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // back
@@ -243,8 +248,8 @@ public class UserManagement extends JFrame {
 
             // Create vector to store column names
             Vector<String> columnNames = new Vector<String>();
-            columnNames.add("user_id");
-            columnNames.add("user_name");
+            columnNames.add("Id Người Dùng");
+            columnNames.add("Tên Người Dùng");
             // columnNames.add("Role");
 
             // Create vector to store data

@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
+import java.sql.*;
 
 public class CustomerManagement extends JFrame {
 
@@ -344,21 +345,37 @@ public class CustomerManagement extends JFrame {
 
 		JButton btnCancel = new JButton("Hủy");
 		btnCancel.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
-				if (i == 12 || i == 15) {
-					SaleManagement SaleManagement = new SaleManagement(i);
-					SaleManagement.setVisible(true);
-					SaleManagement.setLocationRelativeTo(null);
-					dispose();
-				} else {
-					AdminManagement adminManagement = new AdminManagement(i);
-					adminManagement.setVisible(true);
-					adminManagement.setLocationRelativeTo(null);
-					dispose();
+				// query user
+				String sql = "SELECT * FROM user WHERE USER_ID = ?";
+				PreparedStatement statement;
+				try {
+					statement = conn.prepareStatement(sql);
+					statement.setInt(1, i);
+					ResultSet result = statement.executeQuery();
+					result.next();
+					if (result.getString("ROLE").equals("ADMIN")) {
+
+						AdminManagement adminManagement = new AdminManagement(i);
+						adminManagement.setVisible(true);
+						adminManagement.setLocationRelativeTo(null);
+						dispose();
+
+					} else {
+						SaleManagement SaleManagement = new SaleManagement(i);
+						SaleManagement.setVisible(true);
+						SaleManagement.setLocationRelativeTo(null);
+						dispose();
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
 		panel_2.add(btnCancel);
+
 	}
 
 	public void searchData() {
@@ -371,6 +388,9 @@ public class CustomerManagement extends JFrame {
 		}
 		if (customerName != null && !customerName.isEmpty()) {
 			conditionMap.put(DBOperation.customerName, "%" + customerName.toLowerCase() + "%");
+		}
+		if (txtPhonenumbers.getText() != null && !txtPhonenumbers.getText().isEmpty()) {
+			conditionMap.put(DBOperation.phoneNumbers, "%" + txtPhonenumbers.getText().toLowerCase() + "%");
 		}
 		List<Customer> customers = DBOperation.queryCustomer(conditionMap, conn);
 		table.setModel(model);

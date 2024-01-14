@@ -57,6 +57,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.*;
 
 public class PutSelectedItem extends JFrame {
 
@@ -461,7 +462,8 @@ public class PutSelectedItem extends JFrame {
 					float total = number.floatValue();
 					if (!checkBoxMember.isSelected()) {
 						if (txtPhonenumbers.getText().isEmpty()) {
-							JOptionPane.showMessageDialog(null, "Vui lòng điền thông tin khách hàng hoặc đánh dấu vào ô trống!");
+							JOptionPane.showMessageDialog(null,
+									"Vui lòng điền thông tin khách hàng hoặc đánh dấu vào ô trống!");
 							return;
 						}
 					} else {
@@ -550,7 +552,8 @@ public class PutSelectedItem extends JFrame {
 				formatter.format(total);
 				if (!checkBoxMember.isSelected()) {
 					if (txtPhonenumbers.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "Vui lòng điền thông tin khách hàng hoặc đánh dấu vào ô trống!");
+						JOptionPane.showMessageDialog(null,
+								"Vui lòng điền thông tin khách hàng hoặc đánh dấu vào ô trống!");
 						return;
 					}
 				} else {
@@ -592,21 +595,34 @@ public class PutSelectedItem extends JFrame {
 		panel_4.add(btnNewButton_1_2);
 		panel_4.add(btnSave);
 
-		JButton btnNewButton = new JButton("Cancel");
+		JButton btnNewButton = new JButton("Trở lại");
 		btnNewButton.setBounds(836, 447, 89, 23);
 		panel_1.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (i == 12 || i == 15) {
-					SaleManagement SaleManagement = new SaleManagement(i);
-					SaleManagement.setVisible(true);
-					SaleManagement.setLocationRelativeTo(null);
-					dispose();
-				} else {
-					AdminManagement adminManagement = new AdminManagement(i);
-					adminManagement.setVisible(true);
-					adminManagement.setLocationRelativeTo(null);
-					dispose();
+				String sql = "SELECT * FROM user WHERE USER_ID = ?";
+				PreparedStatement statement;
+				try {
+					statement = conn.prepareStatement(sql);
+					statement.setInt(1, i);
+					ResultSet result = statement.executeQuery();
+					result.next();
+					if (result.getString("ROLE").equals("ADMIN")) {
+
+						AdminManagement adminManagement = new AdminManagement(i);
+						adminManagement.setVisible(true);
+						adminManagement.setLocationRelativeTo(null);
+						dispose();
+
+					} else {
+						SaleManagement SaleManagement = new SaleManagement(i);
+						SaleManagement.setVisible(true);
+						SaleManagement.setLocationRelativeTo(null);
+						dispose();
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});

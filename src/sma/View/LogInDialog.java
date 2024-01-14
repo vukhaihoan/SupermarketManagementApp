@@ -114,7 +114,6 @@ public class LogInDialog extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(10, 10, 289, 84);
 		panel_1.add(lblNewLabel_1);
-
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setIcon(new ImageIcon(LogInDialog.class.getResource("/sma/assets/LogIn.jpg")));

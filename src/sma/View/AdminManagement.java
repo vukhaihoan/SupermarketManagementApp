@@ -53,7 +53,7 @@ public class AdminManagement extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 10, 800, 82);
+		panel.setBounds(10, 10, 1200, 82);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -106,7 +106,7 @@ public class AdminManagement extends JFrame {
 			}
 		});
 
-		btnUserManagement.setBounds(684, 27, 213, 40);
+		btnUserManagement.setBounds(684, 27, 300, 40);
 		panel.add(btnUserManagement);
 	}
 }
