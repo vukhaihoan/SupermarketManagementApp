@@ -45,7 +45,7 @@ public class AdminManagement extends JFrame {
 		setTitle("Admin Management");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setBounds(100, 100, 712, 139);
+		setBounds(100, 100, 1200, 139);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -53,7 +53,7 @@ public class AdminManagement extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 10, 677, 82);
+		panel.setBounds(10, 10, 800, 82);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -94,5 +94,19 @@ public class AdminManagement extends JFrame {
 		});
 		btnInvoiceManagement_1.setBounds(454, 27, 213, 40);
 		panel.add(btnInvoiceManagement_1);
+
+		JButton btnUserManagement = new JButton("Quản lý người dùng");
+
+		btnUserManagement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UserManagement userManagement = new UserManagement(i);
+				userManagement.setLocationRelativeTo(null);
+				userManagement.setVisible(true);
+				dispose();
+			}
+		});
+
+		btnUserManagement.setBounds(684, 27, 213, 40);
+		panel.add(btnUserManagement);
 	}
 }
