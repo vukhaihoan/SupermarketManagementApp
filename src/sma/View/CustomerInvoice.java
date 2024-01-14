@@ -94,7 +94,7 @@ public class CustomerInvoice extends JFrame {
 				searchData1(invoiceId);
 			}
 		});
-		String[] columnNames = { "INVOICE_ID", "TRADING_TIME", "BOOTH_ID", "TOTAL" };
+		String[] columnNames = { "Id Hóa Đơn", "Thời gian Giao dịch", "Gian hàng", "Tất cả" };
 		(model).setColumnIdentifiers(columnNames);
 
 		searchData(customer);

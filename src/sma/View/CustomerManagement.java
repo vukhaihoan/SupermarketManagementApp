@@ -28,7 +28,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -347,7 +346,6 @@ public class CustomerManagement extends JFrame {
 		btnCancel.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				// query user
 				String sql = "SELECT * FROM user WHERE USER_ID = ?";
 				PreparedStatement statement;
 				try {
@@ -373,7 +371,9 @@ public class CustomerManagement extends JFrame {
 					e1.printStackTrace();
 				}
 			}
+
 		});
+
 		panel_2.add(btnCancel);
 
 	}

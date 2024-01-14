@@ -288,146 +288,6 @@ public class DBOperation {
 		return customers;
 	}
 
-	public static String insertItem(Item item, Connection conn) {
-
-		String sql = "INSERT INTO ITEMS (ITEM_ID, ITEM_NAME, CATEGORY, MEASUREMENT, QUANTITY, UNIT_PRICE) VALUES (?, ?, ?, ?, ?, ?)";
-
-		try {
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, item.getItemId());
-			statement.setString(2, item.getItemName());
-			statement.setString(3, item.getCategory());
-			statement.setString(4, item.getMeasurement());
-			statement.setInt(5, item.getQuantity());
-			statement.setFloat(6, item.getUnitPrice());
-
-			int rowsInserted = statement.executeUpdate();
-			if (rowsInserted > 0) {
-				System.out.println("A new item was inserted successfully!");
-				return "Insert successfully";
-			}
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		return "Failed";
-	}
-
-	public static List<Item> searchSelectedItem(int invoiceId, Connection conn) {
-
-		String sql = "SELECT * FROM INVOICE_DETAIL WHERE INVOICE_ID= '" + invoiceId + "'";
-
-		List<Item> items = new ArrayList<>();
-
-		try {
-			PreparedStatement statement = conn.prepareStatement(sql);
-			ResultSet result = statement.executeQuery(sql);
-			while (result.next()) {
-
-				int itemId = result.getInt("ITEM_ID");
-				String itemName = result.getString("ITEM_NAME");
-				int quantity = result.getInt("QUANTITY");
-				float unitPrice = result.getFloat("UNIT_PRICE");
-
-				Item item = new Item();
-				item.setItemId(itemId);
-				item.setItemName(itemName);
-				item.setQuantity(quantity);
-				item.setUnitPrice(unitPrice);
-
-				items.add(item);
-			}
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-
-		return items;
-	}
-
-	public static String updateItem(Item item, Connection conn) {
-
-		String sql = "UPDATE ITEMS SET ITEM_NAME=?, CATEGORY=?, MEASUREMENT=?, QUANTITY=?, UNIT_PRICE=? WHERE ITEM_ID=?";
-
-		try {
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setString(1, item.getItemName());
-			statement.setString(2, item.getCategory());
-			statement.setString(3, item.getMeasurement());
-			statement.setInt(4, item.getQuantity());
-			statement.setFloat(5, item.getUnitPrice());
-			statement.setInt(6, item.getItemId());
-
-			int rowsInserted = statement.executeUpdate();
-			if (rowsInserted > 0) {
-				System.out.println("A new item was updated successfully!");
-				return "Successful";
-			}
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		return "Failed";
-	}
-
-	public static String deleteItem(int itemId, Connection conn) {
-
-		String sql = "DELETE FROM ITEMS WHERE ITEM_ID=?";
-
-		try {
-
-			PreparedStatement statement = conn.prepareStatement(sql);
-			statement.setInt(1, itemId);
-
-			int rowsInserted = statement.executeUpdate();
-			if (rowsInserted > 0) {
-				System.out.println("A new item was deleted successfully!");
-				return "Delete successfully";
-			}
-
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		}
-		return "Failed";
-
-	}
-
-	public static Item queryItem(int itemId, Connection conn) {
-
-		String sql = "SELECT * FROM ITEMS WHERE ITEM_ID= '" + itemId + "'";
-
-		Item item = new Item();
-
-		try {
-
-			Statement statement = conn.createStatement();
-			ResultSet result = statement.executeQuery(sql);
-			while (result.next()) {
-
-				String itemName = result.getString("ITEM_NAME");
-				String category = result.getString("CATEGORY");
-				String measurement = result.getString("MEASUREMENT");
-				int quantity = result.getInt("QUANTITY");
-				float unitPrice = result.getFloat("UNIT_PRICE");
-
-				item.setItemId(itemId);
-				item.setItemName(itemName);
-				item.setMeasurement(measurement);
-				item.setCategory(category);
-				item.setQuantity(quantity);
-				item.setUnitPrice(unitPrice);
-
-			}
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-		}
-
-		return item;
-	}
-
 	public static List<Item> queryItem(Map<String, String> conditionMap, Connection conn) {
 
 		String sql = "SELECT * FROM ITEMS WHERE ";
@@ -521,6 +381,263 @@ public class DBOperation {
 		return items;
 
 	}
+
+	public static String insertItem(Item item, Connection conn) {
+
+		String sql = "INSERT INTO ITEMS (ITEM_ID, ITEM_NAME, CATEGORY, MEASUREMENT, QUANTITY, UNIT_PRICE) VALUES (?, ?, ?, ?, ?, ?)";
+
+		try {
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, item.getItemId());
+			statement.setString(2, item.getItemName());
+			statement.setString(3, item.getCategory());
+			statement.setString(4, item.getMeasurement());
+			statement.setInt(5, item.getQuantity());
+			statement.setFloat(6, item.getUnitPrice());
+
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				System.out.println("A new item was inserted successfully!");
+				return "Insert successfully";
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return "Failed";
+	}
+
+	public static List<Item> searchSelectedItem(int invoiceId, Connection conn) {
+
+		String sql = "SELECT * FROM INVOICE_DETAIL WHERE INVOICE_ID= '" + invoiceId + "'";
+
+		List<Item> items = new ArrayList<>();
+
+		try {
+			PreparedStatement statement = conn.prepareStatement(sql);
+			ResultSet result = statement.executeQuery(sql);
+			while (result.next()) {
+
+				int itemId = result.getInt("ITEM_ID");
+				String itemName = result.getString("ITEM_NAME");
+				int quantity = result.getInt("QUANTITY");
+				float unitPrice = result.getFloat("UNIT_PRICE");
+
+				Item item = new Item();
+				item.setItemId(itemId);
+				item.setItemName(itemName);
+				item.setQuantity(quantity);
+				item.setUnitPrice(unitPrice);
+
+				items.add(item);
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+
+		return items;
+	}
+
+	public static String updateItem(Item item, Connection conn) {
+
+		String sql = "UPDATE ITEMS SET ITEM_NAME=?, CATEGORY=?, MEASUREMENT=?, QUANTITY=?, UNIT_PRICE=? WHERE ITEM_ID=?";
+
+		try {
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setString(1, item.getItemName());
+			statement.setString(2, item.getCategory());
+			statement.setString(3, item.getMeasurement());
+			statement.setInt(4, item.getQuantity());
+			statement.setFloat(5, item.getUnitPrice());
+			statement.setInt(6, item.getItemId());
+
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				System.out.println("A new item was updated successfully!");
+				return "Successful";
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return "Failed";
+	}
+
+	public static String updateItemQuantity(int itemId, int quantity, Connection conn) {
+
+		String sql = "UPDATE ITEMS SET QUANTITY=? WHERE ITEM_ID=?";
+
+		try {
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, quantity);
+			statement.setInt(2, itemId);
+
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				System.out.println("A new item was updated successfully!");
+				return "Successful";
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return "Failed";
+	}
+
+	public static String deleteItem(int itemId, Connection conn) {
+
+		String sql = "DELETE FROM ITEMS WHERE ITEM_ID=?";
+
+		try {
+
+			PreparedStatement statement = conn.prepareStatement(sql);
+			statement.setInt(1, itemId);
+
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				System.out.println("A new item was deleted successfully!");
+				return "Delete successfully";
+			}
+
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+		return "Failed";
+
+	}
+
+	public static Item queryItem(int itemId, Connection conn) {
+
+		String sql = "SELECT * FROM ITEMS WHERE ITEM_ID= '" + itemId + "'";
+
+		Item item = new Item();
+
+		try {
+
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			while (result.next()) {
+
+				String itemName = result.getString("ITEM_NAME");
+				String category = result.getString("CATEGORY");
+				String measurement = result.getString("MEASUREMENT");
+				int quantity = result.getInt("QUANTITY");
+				float unitPrice = result.getFloat("UNIT_PRICE");
+
+				item.setItemId(itemId);
+				item.setItemName(itemName);
+				item.setMeasurement(measurement);
+				item.setCategory(category);
+				item.setQuantity(quantity);
+				item.setUnitPrice(unitPrice);
+
+			}
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return item;
+	}
+
+	// public static List<Item> queryItem(Map<String, String> conditionMap,
+	// Connection conn) {
+
+	// String sql = "SELECT * FROM ITEMS WHERE ";
+
+	// if (conditionMap == null || conditionMap.isEmpty()) {
+	// sql = sql.replace("WHERE", "");
+	// }
+
+	// boolean needAnd = false;
+
+	// if (conditionMap.containsKey(itemId)) {
+
+	// sql = sql + "ITEM_ID = '" + conditionMap.get(itemId) + "'";
+	// needAnd = true;
+	// }
+
+	// if (conditionMap.containsKey(itemName)) {
+
+	// if (needAnd) {
+	// sql = sql + " AND ";
+	// }
+	// sql = sql + "ITEM_NAME = '" + conditionMap.get(itemName) + "'";
+	// needAnd = true;
+	// }
+
+	// if (conditionMap.containsKey(category)) {
+
+	// if (needAnd) {
+	// sql = sql + " AND ";
+	// }
+	// sql = sql + "CATEGORY = '" + conditionMap.get(category) + "'";
+	// needAnd = true;
+	// }
+
+	// if (conditionMap.containsKey(measurement)) {
+
+	// if (needAnd) {
+	// sql = sql + " AND ";
+	// }
+	// sql = sql + "MEASUREMENT = '" + conditionMap.get(measurement) + "'";
+	// needAnd = true;
+	// }
+
+	// if (conditionMap.containsKey(quantity)) {
+
+	// if (needAnd) {
+	// sql = sql + " AND ";
+	// }
+	// sql = sql + "QUANTITY = '" + conditionMap.get(quantity) + "'";
+	// needAnd = true;
+	// }
+
+	// if (conditionMap.containsKey(unitPrice)) {
+
+	// if (needAnd) {
+	// sql = sql + " AND ";
+	// }
+	// sql = sql + "UNIT_PRICE = '" + conditionMap.get(unitPrice) + "'";
+	// }
+
+	// List<Item> items = new ArrayList<Item>();
+
+	// try {
+
+	// Statement statement = conn.createStatement();
+	// ResultSet result = statement.executeQuery(sql);
+	// while (result.next()) {
+
+	// int itemId = result.getInt("ITEM_ID");
+	// String itemName = result.getString("ITEM_NAME");
+	// String category = result.getString("CATEGORY");
+	// String measurement = result.getString("MEASUREMENT");
+	// int quantity = result.getInt("QUANTITY");
+	// float unitPrice = result.getFloat("UNIT_PRICE");
+
+	// Item item = new Item();
+	// item.setItemId(itemId);
+	// item.setItemName(itemName);
+	// item.setMeasurement(measurement);
+	// item.setCategory(category);
+	// item.setQuantity(quantity);
+	// item.setUnitPrice(unitPrice);
+
+	// items.add(item);
+
+	// }
+	// } catch (SQLException e) {
+	// e.printStackTrace();
+	// }
+
+	// return items;
+
+	// }
 
 	public static List<Item> querySelectedItem(Connection conn) {
 

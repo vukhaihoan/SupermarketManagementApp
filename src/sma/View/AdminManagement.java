@@ -61,7 +61,8 @@ public class AdminManagement extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				CustomerManagement customerManagement = new CustomerManagement(k);
+				// CustomerManagement customerManagement = new CustomerManagement(k);
+				CustomerManagement customerManagement = new CustomerManagement(i);
 				customerManagement.setLocationRelativeTo(null);
 				customerManagement.setVisible(true);
 				dispose();

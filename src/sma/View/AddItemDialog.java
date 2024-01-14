@@ -173,8 +173,30 @@ public class AddItemDialog extends JFrame {
 					JOptionPane.showMessageDialog(null, "Vui lòng điền tất cả các thông tin được yêu cầu∂.");
 					return;
 				} else {
-					int quantity = Integer.parseInt(txtQuantity.getText());
+					// check if item detail is already existed them increment quantity
+
+					Map<String, String> condition = new HashMap<String, String>();
+
+					condition.put(DBOperation.itemName, itemName);
+					condition.put(DBOperation.category, category);
+					condition.put(DBOperation.measurement, measurement);
+
 					float unitPrice = Float.parseFloat(txtUnitPrice.getText());
+					condition.put(DBOperation.unitPrice, String.valueOf(unitPrice));
+
+					List<Item> items = DBOperation.queryItem(condition, conn);
+					if (items.size() > 0) {
+						int quantity = Integer.parseInt(txtQuantity.getText());
+						int itemId2 = items.get(0).getItemId();
+						int quantity2 = items.get(0).getQuantity();
+						quantity += quantity2;
+						DBOperation.updateItemQuantity(itemId2, quantity, conn);
+						JOptionPane.showMessageDialog(null, "Sản phẩm đã tồn tại, số lượng đã được cập nhật.");
+						dispose();
+						return;
+					}
+					int quantity = Integer.parseInt(txtQuantity.getText());
+
 					Item item = new Item();
 					item.setItemId(itemId);
 					item.setItemName(itemName);
