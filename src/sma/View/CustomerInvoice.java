@@ -145,7 +145,7 @@ public class CustomerInvoice extends JFrame {
 
 		table2 = new JTable();
 
-		String[] columnNames1 = { "ITEM_ID", "ITEM_NAME", "QUANTITY", "UNIT_PRICE" };
+		String[] columnNames1 = { "ID Sản Phẩm", "Tên Sản Phẩm", "Số lượng", "Đơn vị" };
 		(model2).setColumnIdentifiers(columnNames1);
 		scrollPane_1.setViewportView(table2);
 
